@@ -1,3 +1,4 @@
+# Hello everyone! :)
 #
 # ~/.bashrc
 #
@@ -15,3 +16,4 @@ set -o noclobber
 
 # prompt
 PS1='[\u@\h \W]\$ '
+
