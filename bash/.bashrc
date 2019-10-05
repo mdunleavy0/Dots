@@ -1,4 +1,3 @@
-# Hello everyone! :)
 #
 # ~/.bashrc
 #
