@@ -185,7 +185,7 @@ Provides pretty Unicode bullet points for Org mode headings.
 #+END_SRC
 
 
-** Onmisharp
+** Omnisharp
 
 https://github.com/OmniSharp/omnisharp-emacs
 
@@ -441,6 +441,17 @@ modes. Default to tabs otherwise.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default show-trailing-whitespace t)
+#+END_SRC
+
+
+*** CC Mode
+
+~cc-mode~ is a parent mode for C-like languages including C, Java &
+AWK. It provides settings for indenting and formatting source code in
+its child modes. Preset styles are available with ~c-set-style~.
+
+#+BEGIN_SRC emacs-lisp
+  (setq c-default-style "stroustrup")
 #+END_SRC
 
 
