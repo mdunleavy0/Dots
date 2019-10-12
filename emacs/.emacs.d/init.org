@@ -194,7 +194,8 @@ Provides C# IDE features.
 #+BEGIN_SRC emacs-lisp
   (use-package omnisharp
     :ensure t
-    :hook (csharp-mode . omnisharp-mode))
+    :hook (csharp-mode . omnisharp-mode)
+    :config (add-to-list 'company-backends 'company-omnisharp))
 #+END_SRC
 
 
@@ -291,6 +292,19 @@ File icon set. (Useful for dired.)
   (use-package vscode-icon
     :ensure t
     :commands (vscode-icon-for-file))
+#+END_SRC
+
+
+** Org Kanban
+
+https://github.com/gizmomogwai/org-kanban
+https://en.wikipedia.org/wiki/Kanban_(development)
+
+Kanban board generator for Org. Generates a table from ~TODO~ states.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-kanban
+    :ensure t)
 #+END_SRC
 
 
