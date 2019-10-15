@@ -649,6 +649,22 @@ Hide emphasis marker characters (such as '/'s for italics).
 #+END_SRC
 
 
+* SQL
+
+** MariaDB
+
+[[https://mariadb.org/][MariaDB]] can use MySQL's ~sql-mode~ interpreter (~M-x sql-mysql~). However,
+this interpreter is only setup to recognise MySQL prompts by
+default. The following code defines a regular expression for both
+MariaDB and MySQL prompts.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'sql)
+  (sql-set-product-feature 'mysql :prompt-regexp
+                           "^\\(MariaDB\\|MySQL\\) \\[[_a-zA-Z]*\\]> ")
+#+END_SRC
+
+
 * init.org
 
 ** Org-mode Properties
