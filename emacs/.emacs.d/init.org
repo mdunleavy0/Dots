@@ -308,6 +308,54 @@ Kanban board generator for Org. Generates a table from ~TODO~ states.
 #+END_SRC
 
 
+** PDF Tools
+
+https://github.com/politza/pdf-tools
+
+Enhanced PDF viewer
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pdf-tools
+    :ensure t
+    :config (pdf-tools-install))
+#+END_SRC
+
+
+** AUCTeX
+
+https://www.gnu.org/software/auctex/
+
+Enhanced TeX mode.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tex
+    :ensure auctex
+    :hook (TeX-mode . TeX-source-correlate-mode)
+    :config
+    (setq TeX-auto-save t
+          TeX-parse-self t)
+    (setq-default TeX-master nil)
+    (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+          TeX-source-correlate-start-server t)
+    ;; should probably check pdf-tools is installed first?
+    (add-hook 'TeX-after-compilation-finished-functions
+              'TeX-revert-document-buffer))
+#+END_SRC
+
+*** Company AUCTeX
+
+https://github.com/alexeyr/company-auctex
+
+Company auto-completions for AUCTeX.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-auctex
+    :ensure t
+    :hook (TeX-mode . company-mode)
+    :config (company-auctex-init))
+#+END_SRC
+
+
 * User Interface
 
 ** Startup Screen
