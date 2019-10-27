@@ -342,6 +342,7 @@ Enhanced TeX mode.
               'TeX-revert-document-buffer))
 #+END_SRC
 
+
 *** Company AUCTeX
 
 https://github.com/alexeyr/company-auctex
@@ -353,6 +354,80 @@ Company auto-completions for AUCTeX.
     :ensure t
     :hook (TeX-mode . company-mode)
     :config (company-auctex-init))
+#+END_SRC
+
+
+** Scala
+
+https://www.scala-lang.org/
+https://github.com/hvesalai/emacs-scala-mode
+
+The Scala programming language.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package scala-mode
+    :ensure t
+    :interpreter "scala"
+    :hook lsp)
+#+END_SRC
+
+
+** SBT
+
+https://www.scala-sbt.org/
+https://github.com/hvesalai/emacs-sbt-mode
+
+The Scala Build Tool.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package sbt-mode
+    :ensure t
+    :commands sbt-start sbt-command
+    :config
+    ;; WORKAROUND: allows using SPACE when in the minibuffer
+    (substitute-key-definition
+     'minibuffer-complete-word
+     'self-insert-command
+     minibuffer-local-completion-map))
+#+END_SRC
+
+
+** Language Server Protocol (LSP)
+
+https://microsoft.github.io/language-server-protocol/
+https://github.com/emacs-lsp/lsp-mode
+
+A protocol for communication between text editors and language
+implementations. Provides a generic way to turn editors into IDEs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-mode
+    :ensure t
+    :config (setq lsp-prefer-flymake nil))
+#+END_SRC
+
+
+*** LSP UI
+
+https://github.com/emacs-lsp/lsp-ui
+
+Advanced user interface features for lsp-mode.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package lsp-ui
+    :ensure t)
+#+END_SRC
+
+
+*** Company LSP
+
+https://github.com/tigersoldier/company-lsp
+
+Company completion support for lsp-mode.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-lsp
+    :ensure t)
 #+END_SRC
 
 
