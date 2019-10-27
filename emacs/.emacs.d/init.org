@@ -367,8 +367,7 @@ The Scala programming language.
 #+BEGIN_SRC emacs-lisp
   (use-package scala-mode
     :ensure t
-    :interpreter "scala"
-    :hook lsp)
+    :interpreter "scala")
 #+END_SRC
 
 
@@ -403,6 +402,7 @@ implementations. Provides a generic way to turn editors into IDEs.
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
     :ensure t
+    :hook (scala-mode . lsp)
     :config (setq lsp-prefer-flymake nil))
 #+END_SRC
 
