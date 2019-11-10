@@ -11,7 +11,7 @@ XDG_DATA_HOME   DEFAULT="/home/mike/.local/share"
 ZDOTDIR     DEFAULT="/home/mike/.zsh"
 
 # default applications
-BROWSER     DEFAULT="firefox"
+BROWSER     DEFAULT="chromium"
 EDITOR      DEFAULT="emacs -nw"
 PAGER       DEFAULT="less"
 VISUAL      DEFAULT="emacs"
