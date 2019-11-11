@@ -437,10 +437,22 @@ Company completion support for lsp-mode.
 
 https://github.com/emacs-lsp/lsp-java
 
-Language server protocol for Java.
+Language server for Java.
 
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-java
+    :ensure t)
+#+END_SRC
+
+
+** FlyMD
+
+https://github.com/mola-T/flymd
+
+On the fly markdown preview.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flymd
     :ensure t)
 #+END_SRC
 
