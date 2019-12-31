@@ -1,9 +1,0 @@
-# backup crontab
-*/15	*	*	*	*	crontab -l > $HOME/dots/cron/.config/cron/crontab.bak
-
-# empty old files from trash
-0	*	*	*	*	trash-empty 30
-# similarly, empty emacs backups and auto-saves
-0	*	*	*	*	$HOME/bin/ibm 7 $HOME/.emacs.d/auto-saves
-0	*	*	*	*	$HOME/bin/ibm 7 $HOME/.emacs.d/backups/per-save
-0	*	*	*	*	$HOME/bin/ibm 30 $HOME/.emacs.d/backups/per-session
