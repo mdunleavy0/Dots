@@ -1,0 +1,16 @@
+#+TITLE: Placeholder Config
+#+PROPERTY: header-args :tangle yes
+
+Temporarily disable creation of autosave and backup files (until I
+configure a suitable location for them).
+#+BEGIN_SRC emacs-lisp
+  (setq auto-save-default nil)
+  (setq make-backup-files nil)
+#+END_SRC
+
+When visiting a symlink to a version controlled file, do not follow
+the symlink. (Of particular interest to me, don't follow this file to
+my dotfiles directory.)
+#+BEGIN_SRC emacs-lisp
+  (setq vc-follow-symlinks nil)
+#+END_SRC
