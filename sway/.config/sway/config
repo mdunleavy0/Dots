@@ -102,6 +102,10 @@ input type:keyboard {
     bindsym $mod+space          exec rofi -show drun
     bindsym $mod+Shift+space    exec rofi -show run
 
+    # File manager
+    bindsym $mod+d              exec nautilus
+    bindsym $mod+Shift+d        exec $term ranger
+
     # Text editor
     bindsym $mod+e              exec emacs
     bindsym $mod+Shift+e        exec $term emacs -nw
@@ -109,7 +113,7 @@ input type:keyboard {
     # Web browser
     bindsym $mod+w              exec firefox
     bindsym $mod+Shift+w        exec firefox --private-window
-    
+
 # Movement
 
     # Focus on window
