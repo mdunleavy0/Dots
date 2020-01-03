@@ -113,6 +113,8 @@ input type:keyboard {
     # Web browser
     bindsym $mod+w              exec firefox
     bindsym $mod+Shift+w        exec firefox --private-window
+    bindsym $mod+Ctrl+w         exec chromium
+    bindsym $mod+Ctrl+Shift+w   exec chromium --incognito
 
 # Movement
 
