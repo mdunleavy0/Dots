@@ -1,0 +1,214 @@
+#
+# Michael Dunleavy's Sway Config
+#
+# Perspective: I was previously using BSPWM. I love BSPWM, but I
+# wanted to move onto a Wayland WM. This config will have a fair few
+# BSPWM-isms. Also, I am not Vim user so don't expect me to keep all
+# the Vim-like keybindings.
+#
+
+
+#
+### Variables
+#
+
+# Mod key = Super (aka. Windows key)
+set $mod Mod4
+
+# Home row direction keys, like Vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Width of gap between windows
+set $gap 20px
+
+# Granularity of the resize window keybindings
+set $resize_step 20px
+
+# Your preferred terminal emulator
+set $term kitty
+
+
+#
+### Outputs
+#
+
+# Wallpaper
+# ~/pics/wallpaper is a symlink to whatever image I want. This way I
+# don't have to edit this file every time I change wallpaper.
+output * bg $(xdg-user-dir PICTURES)/wallpaper fill
+
+# Monitor config
+# Use integer scaling factors for best results.
+output eDP-1 scale 2
+
+# Note: XWayland windows will not be properly scaled for HiDPI
+# outputs. Instead they will be rendered at the default DPI and
+# blown-up. This causes XWayland windows to look blurry. Notable
+# applications still requiring XWayland include Emacs and
+# Chromium. Sway 1.3-rc1 introduces the scale_filter feature which
+# applies a nearest-neighbor or linear scaling filter to the blown-up
+# buffers. This greatly mitigates the blurriness. (I'm pretty sure
+# this technique is how MacOS became the leader in HiDPI.) Seek out
+# version 1.3-rc1 or greater where possible.
+
+
+#
+### Inputs
+#
+
+# Touchpad
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
+# Keyboard
+input type:keyboard {
+    xkb_layout ie
+    xkb_options ctrl:swapcaps
+}
+
+#
+### Key bindings
+#
+
+# Basics
+
+    # Kill focused window
+    bindsym $mod+escape     kill
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+# Applications
+
+    # Terminal
+    bindsym $mod+return         exec $term
+
+    # Application launcher
+    bindsym $mod+space          exec rofi -show drun
+    bindsym $mod+Shift+space    exec rofi -show run
+
+    # Text editor
+    bindsym $mod+e              exec emacs
+    bindsym $mod+Shift+e        exec $term emacs -nw
+
+    # Web browser
+    bindsym $mod+w              exec firefox
+    bindsym $mod+Shift+w        exec firefox --private
+    
+# Movement
+
+    # Focus on window
+    bindsym $mod+$left          focus left
+    bindsym $mod+$down          focus down
+    bindsym $mod+$up            focus up
+    bindsym $mod+$right         focus right
+    # Alternatively, use arrow keys
+    bindsym $mod+Left           focus left
+    bindsym $mod+Down           focus down
+    bindsym $mod+Up             focus up
+    bindsym $mod+Right          focus right
+
+    # Move window
+    bindsym $mod+Shift+$left    move left
+    bindsym $mod+Shift+$down    move down
+    bindsym $mod+Shift+$up      move up
+    bindsym $mod+Shift+$right   move right
+    # Alternatively, use arrow keys
+    bindsym $mod+Shift+Left     move left
+    bindsym $mod+Shift+Down     move down
+    bindsym $mod+Shift+Up       move up
+    bindsym $mod+Shift+Right    move right
+
+# Workspaces
+
+    # Focus on workspace
+    bindsym $mod+1  workspace I
+    bindsym $mod+2  workspace II
+    bindsym $mod+3  workspace III
+    bindsym $mod+4  workspace IV
+    bindsym $mod+5  workspace V
+    bindsym $mod+6  workspace VI
+    bindsym $mod+7  workspace VII
+    bindsym $mod+8  workspace VIII
+    bindsym $mod+9  workspace IX
+    bindsym $mod+0  workspace X
+    # Move focused container to workspace
+    bindsym $mod+Shift+1    move container to workspace I
+    bindsym $mod+Shift+2    move container to workspace II
+    bindsym $mod+Shift+3    move container to workspace III
+    bindsym $mod+Shift+4    move container to workspace IV
+    bindsym $mod+Shift+5    move container to workspace V
+    bindsym $mod+Shift+6    move container to workspace VI
+    bindsym $mod+Shift+7    move container to workspace VII
+    bindsym $mod+Shift+8    move container to workspace VIII
+    bindsym $mod+Shift+9    move container to workspace IX
+    bindsym $mod+Shift+0    move container to workspace X
+
+# Layout
+
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+f floating toggle
+    bindsym $mod+m fullscreen toggle
+    # Enable tiling layout by disabling all other layouts
+    bindsym $mod+t floating disable; fullscreen disable
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+
+# Resizing
+
+    bindsym $mod+alt+$left      resize shrink width $resize_step
+    bindsym $mod+alt+$down      resize shrink height $resize_step
+    bindsym $mod+alt+$up        resize grow height $resize_step
+    bindsym $mod+alt+$right     resize grow width $resize_step
+
+    bindsym $mod+alt+left       resize shrink width $resize_step
+    bindsym $mod+alt+down       resize shrink height $resize_step
+    bindsym $mod+alt+up         resize grow height $resize_step
+    bindsym $mod+alt+right      resize grow width $resize_step
+
+# Aesthetics
+
+    # Gaps between windows
+    gaps inner $gap
+
+#
+# Status Bar
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position top
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+}
+
+include /etc/sway/config.d/*
