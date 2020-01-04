@@ -111,6 +111,15 @@ modes. Preset styles are available with ~c-set-style~.
 #+END_SRC
 
 
+** Fill Column
+
+Prefrerred line width for commands like ~fill-paragraph~.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 80)
+#+END_SRC
+
+
 ** Pretty Symbols
 
 Minor mode for drawing multi-character tokens as Unicode glyphs (e.g. lambda ->
@@ -119,6 +128,7 @@ Minor mode for drawing multi-character tokens as Unicode glyphs (e.g. lambda ->
 #+BEGIN_SRC emacs-lisp
   (global-prettify-symbols-mode 1)
 #+END_SRC
+
 
 ** Parentheses
 
