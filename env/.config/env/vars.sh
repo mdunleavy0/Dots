@@ -19,6 +19,10 @@
 # compositor.
 #
 
+# C-header style lock to prevent file being sourced more than once
+if [ -z "$ENVVAR_LOCK" ]; then
+export ENVVAR_LOCK=1
+
 # path
 # Add user bin directory.
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
@@ -49,3 +53,5 @@ export LESSHISTFILE='/dev/null'
 
 # zsh
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
+fi
