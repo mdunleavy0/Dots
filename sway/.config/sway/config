@@ -1,10 +1,9 @@
 #
 # Michael Dunleavy's Sway Config
 #
-# Perspective: I was previously using BSPWM. I love BSPWM, but I
-# wanted to move onto a Wayland WM. This config will have a fair few
-# BSPWM-isms. Also, I am not Vim user so don't expect me to keep all
-# the Vim-like keybindings.
+# Perspective: I was previously using BSPWM. I love BSPWM, but I wanted to move
+# onto a Wayland WM. This config will have a fair few BSPWM-isms. Also, I am not
+# Vim user so don't expect me to keep all the Vim-like keybindings.
 #
 
 
@@ -36,23 +35,22 @@ set $term kitty
 #
 
 # Wallpaper
-# ~/pics/wallpaper is a symlink to whatever image I want. This way I
-# don't have to edit this file every time I change wallpaper.
+# ~/pics/wallpaper is a symlink to whatever image I want. This way I don't have
+# to edit this file every time I change wallpaper.
 output * bg $(xdg-user-dir PICTURES)/wallpaper fill
 
 # Monitor config
 # Use integer scaling factors for best results.
 output eDP-1 scale 2
 
-# Note: XWayland windows will not be properly scaled for HiDPI
-# outputs. Instead they will be rendered at the default DPI and
-# blown-up. This causes XWayland windows to look blurry. Notable
-# applications still requiring XWayland include Emacs and
-# Chromium. Sway 1.3-rc1 introduces the scale_filter feature which
+# Note: XWayland windows will not be properly scaled for HiDPI outputs. Instead
+# they will be rendered at the default DPI and blown-up. This causes XWayland
+# windows to look blurry. Notable applications still requiring XWayland include
+# Emacs and Chromium. Sway 1.3-rc1 introduces the scale_filter feature which
 # applies a nearest-neighbor or linear scaling filter to the blown-up
-# buffers. This greatly mitigates the blurriness. (I'm pretty sure
-# this technique is how MacOS became the leader in HiDPI.) Seek out
-# version 1.3-rc1 or greater where possible.
+# buffers. This greatly mitigates the blurriness. (I'm pretty sure this
+# technique is how MacOS became the leader in HiDPI.) Seek out version 1.3-rc1
+# or greater where possible.
 
 
 #
@@ -111,8 +109,8 @@ input type:keyboard {
     bindsym $mod+Shift+e        exec $term emacs -nw
 
     # Web browser
-    bindsym $mod+w              exec firefox
-    bindsym $mod+Shift+w        exec firefox --private-window
+    bindsym $mod+w              exec env MOZ_ENABLE_WAYLAND=1 firefox
+    bindsym $mod+Shift+w        exec env MOZ_ENABLE_WAYLAND=1 firefox --private-window
     bindsym $mod+Ctrl+w         exec chromium
     bindsym $mod+Ctrl+Shift+w   exec chromium --incognito
 
