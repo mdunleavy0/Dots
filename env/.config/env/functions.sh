@@ -31,7 +31,7 @@ alias lca='lc -A'
 
 
 # man
-# Colourise text effects, thus colourising man pages.
+# Colourise ANSI text effects used by man.
 man() {
     # This is more verbose than usual, but it makes shellcheck shut up. (Still
     # fails on Dash though.)
