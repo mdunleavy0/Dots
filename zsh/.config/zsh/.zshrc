@@ -69,3 +69,11 @@ setopt no_clobber
 autoload -Uz promptinit
 promptinit
 prompt suse
+
+################################################################################
+
+# syntax highlighting
+# https://github.com/zsh-users/zsh-syntax-highlighting
+# Should be configured last.
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+source $HOME/opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
