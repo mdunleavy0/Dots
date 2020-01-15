@@ -12,8 +12,10 @@ alias diff='diff --color=auto'
 alias dush='du -sh'
 
 # editor
-alias e='$EDITOR'   # terminal text editor
-alias v='$VISUAL'   # GUI text editor
+# Single quotes mean variable is expanded at invokation; but this behaves
+# undesirably with zsh.
+alias e="$EDITOR"       # terminal text editor
+alias v="$VISUAL"       # GUI text editor
 
 # emerge
 # only useful as root
@@ -53,7 +55,7 @@ alias nano='nano --mouse'
 alias xd='od -txz'
 
 # pager
-alias p='$PAGER'
+alias p="$PAGER"
 
 # printenv
 alias printenv='printenv | sort'
