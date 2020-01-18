@@ -373,6 +373,16 @@ other packages should be setup with use-package instead.
 #+END_SRC
 
 
+** C#
+
+https://github.com/josteink/csharp-mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package csharp-mode
+    :ensure t)
+#+END_SRC
+
+
 ** Company
 
 https://company-mode.github.io/
