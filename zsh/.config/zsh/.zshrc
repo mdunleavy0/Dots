@@ -66,9 +66,11 @@ source $ZDOTDIR/keys.zsh    # Delete, Home, Insert, etc.
 setopt no_clobber
 
 # prompt
+fpath=("$ZDOTDIR/prompts" "$fpath[@]")
 autoload -Uz promptinit
 promptinit
-prompt suse
+prompt suseplus
+
 
 ################################################################################
 
