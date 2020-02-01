@@ -46,7 +46,7 @@ export MOZ_USE_XINPUT2=1
 export DICTIONARY='en_GB'
 
 # less
-export LESS="-R"
+export LESS="-iR"
 [ -f /usr/bin/src-hilite-lesspipe.sh ] && \
     export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
 export LESSHISTFILE='/dev/null'
