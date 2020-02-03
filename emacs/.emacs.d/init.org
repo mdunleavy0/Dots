@@ -422,7 +422,8 @@ implementations. Provides a generic way to turn editors into IDEs.
 
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
-    :ensure t)
+    :ensure t
+    :hook (scala-mode . lsp))
 #+END_SRC
 
 
@@ -466,6 +467,40 @@ to your system. In other words it lets you try a package out before installing.
 #+BEGIN_SRC emacs-lisp
   (use-package try
     :ensure t)
+#+END_SRC
+
+
+** Scala
+
+https://www.scala-lang.org/
+https://github.com/hvesalai/emacs-scala-mode
+
+The Scala programming language.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package scala-mode
+    :ensure t
+    :interpreter "scala")
+#+END_SRC
+
+
+*** SBT
+
+https://www.scala-sbt.org/
+https://github.com/hvesalai/emacs-sbt-mode
+
+The Scala Build Tool.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package sbt-mode
+    :ensure t
+    :commands sbt-start sbt-command
+    :config
+    ;; WORKAROUND: allows using SPACE when in the minibuffer
+    (substitute-key-definition
+     'minibuffer-complete-word
+     'self-insert-command
+     minibuffer-local-completion-map))
 #+END_SRC
 
 
