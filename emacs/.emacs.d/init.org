@@ -423,7 +423,8 @@ implementations. Provides a generic way to turn editors into IDEs.
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
     :ensure t
-    :hook (scala-mode . lsp))
+    :hook (scala-mode . lsp)
+    :config (setq lsp-enable-snippet nil))
 #+END_SRC
 
 
@@ -451,7 +452,7 @@ Advanced user interface features for lsp-mode.
   (use-package lsp-ui
     :ensure t
     :after flycheck
-    :hook lsp-mode
+    :hook (lsp-mode . lsp-ui-mode)
     :config (setq lsp-prefer-flymake nil))
 #+END_SRC
 
