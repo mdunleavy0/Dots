@@ -478,16 +478,16 @@ Advanced user interface features for lsp-mode.
 
 
 
-** Try
+** Org Bullets
 
-https://github.com/larstvei/Try
+https://github.com/sabof/org-bullets
 
-=Try= allows you to try download and use a package without permanently saving it
-to your system. In other words it lets you try a package out before installing.
+Use pretty Unicode bullet points for Org mode headings.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package try
-    :ensure t)
+  (use-package org-bullets
+    :ensure t
+    :hook (org-mode . org-bullets-mode))
 #+END_SRC
 
 
@@ -523,6 +523,20 @@ The Scala Build Tool.
      'self-insert-command
      minibuffer-local-completion-map))
 #+END_SRC
+
+
+** Try
+
+https://github.com/larstvei/Try
+
+=Try= allows you to try download and use a package without permanently saving it
+to your system. In other words it lets you try a package out before installing.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package try
+    :ensure t)
+#+END_SRC
+
 
 
 ** Which-key
