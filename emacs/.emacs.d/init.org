@@ -1,4 +1,4 @@
-#+TITLE:    Placeholder Config
+#+TITLE:    Emacs Config
 #+AUTHOR:   Michael Dunleavy
 #+EMAIL:    mike@dunleavy.ie
 
