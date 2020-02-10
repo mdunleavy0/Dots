@@ -157,6 +157,19 @@ spell-checker to be installed on the operating system.
 #+END_SRC
 
 
+* Style
+
+** Font
+
+There are several ways to configure the default font. This approach is taken
+from the [[info:emacs#Fonts][manual]].
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist
+               '(font . "Monospace-12"))
+#+END_SRC
+
+
 * Auto-saves & Backups
 
 ** Auto-saves
