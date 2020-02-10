@@ -83,6 +83,13 @@ tabs otherwise.
             (lambda () (setq indent-tabs-mode nil)))
 #+END_SRC
 
+As an exception, use tabs in =makefile-mode=. (Makefiles require tabs.)
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'makefile-mode-hook
+            (lambda () (setq indent-tabs-mode t)))
+#+END_SRC
+
 
 *** Indentation Width
 
