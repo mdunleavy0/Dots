@@ -352,7 +352,7 @@ directory.)
 #+END_SRC
 
 
-* 3rd Party Packages
+* External Packages
 
 ** Prerequisites
 
@@ -425,14 +425,43 @@ other packages should be setup with use-package instead.
     (require 'use-package))
 #+END_SRC
 
+=Ensure= packages are installed by default. An ensured package will be downloaded
+from the package archives if it is not already present.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'use-package-ensure)
+  (setq use-package-always-defer t)
+#+END_SRC
+
 
 ** C#
 
 https://github.com/josteink/csharp-mode
 
 #+BEGIN_SRC emacs-lisp
-  (use-package csharp-mode
-    :ensure t)
+  (use-package csharp-mode)
+#+END_SRC
+
+
+*** Omnisharp
+
+https://github.com/OmniSharp/omnisharp-emacs
+
+Omnisharp is server for C# IDE features. =omnisharp-mode= enhances =csharp-mode=
+with Omnisharp features.
+
+This package requires Mono to be installed on the operating system.
+
+Omnisharp has also recently implemented a LSP language server. =lsp-mode= includes
+a client and installer for the language server, making this package
+obsolete. Unfortunately, I have been unable to get this to work.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package omnisharp
+    :hook (csharp-mode . omnisharp-mode)
+    :config
+    (omnisharp--install-server nil t)
+    (add-to-list 'company-backends 'company-omnisharp))
 #+END_SRC
 
 
@@ -444,7 +473,6 @@ Auto-completion engine.
 
 #+BEGIN_SRC emacs-lisp
   (use-package company
-    :ensure t
     :hook (prog-mode . company-mode)
     :config
     (setq company-idle-delay 0)
@@ -460,7 +488,6 @@ Programming syntax checker.
 
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
-    :ensure t
     :init (global-flycheck-mode t))
 #+END_SRC
 
@@ -475,7 +502,6 @@ implementations. Provides a generic way to turn editors into IDEs.
 
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
-    :ensure t
     :hook (scala-mode . lsp)
     :config (setq lsp-enable-snippet nil))
 #+END_SRC
@@ -489,7 +515,6 @@ Company completion support for lsp-mode.
 
 #+BEGIN_SRC emacs-lisp
   (use-package company-lsp
-    :ensure t
     :after company
     :config (push 'company-lsp company-backends))
 #+END_SRC
@@ -503,7 +528,6 @@ Advanced user interface features for lsp-mode.
 
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-ui
-    :ensure t
     :after flycheck
     :hook (lsp-mode . lsp-ui-mode)
     :config (setq lsp-prefer-flymake nil))
@@ -519,7 +543,6 @@ Use pretty Unicode bullet points for Org mode headings.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
-    :ensure t
     :hook (org-mode . org-bullets-mode))
 #+END_SRC
 
@@ -533,7 +556,6 @@ The Scala programming language.
 
 #+BEGIN_SRC emacs-lisp
   (use-package scala-mode
-    :ensure t
     :interpreter "scala")
 #+END_SRC
 
@@ -547,7 +569,6 @@ The Scala Build Tool.
 
 #+BEGIN_SRC emacs-lisp
   (use-package sbt-mode
-    :ensure t
     :commands sbt-start sbt-command
     :config
     ;; WORKAROUND: allows using SPACE when in the minibuffer
@@ -566,10 +587,8 @@ https://github.com/larstvei/Try
 to your system. In other words it lets you try a package out before installing.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package try
-    :ensure t)
+  (use-package try)
 #+END_SRC
-
 
 
 ** Which-key
@@ -580,6 +599,5 @@ Displays suggestions for unfinished key-bindings.
 
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
-    :ensure t
     :config (which-key-mode))
 #+END_SRC
