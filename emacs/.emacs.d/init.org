@@ -179,6 +179,17 @@ Toggle line numbers.
 #+END_SRC
 
 
+** Revert Buffer
+
+Borrowing from the Common User Access (CUA) conventions, bind =<f5>= to Emacs'
+equivalent of a /refresh/ command.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "<f5>") 'revert-buffer)
+  (global-set-key (kbd "M-<f5>") 'auto-revert-mode)
+#+END_SRC
+
+
 * Style
 
 ** Font
