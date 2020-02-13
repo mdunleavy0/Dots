@@ -25,6 +25,17 @@ zstyle ':completion:*:*:-command-:*:*' group-order \
        reserved-words aliases builtins functions commands
 zstyle ':completion:*' format '%F{8}Completing %d:%f'
 
+# completions - matching
+#1 Normal completion
+#2 Lower -> upper
+#3 Lower <-> upper, hyphen <-> underscore
+#4 Separate into sub-completions on punctuation
+zstyle ':completion:*' matcher-list \
+       '' \
+       '+m:{[:lower:]}={[:upper:]}' \
+       '+m:{[:lower:][:upper:]-_}={[:upper:][:lower:]_-}' \
+       '+r:|[.,_-]=** r:|=**'
+
 # completions - menu
 # Make completion menu navigable with arrow keys.
 zstyle ':completion:*' menu select
