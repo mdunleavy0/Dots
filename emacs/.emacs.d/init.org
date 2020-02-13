@@ -157,6 +157,19 @@ spell-checker to be installed on the operating system.
 #+END_SRC
 
 
+* Key Bindings
+
+** Suspend
+
+By default =C-z= is bound to ~suspend-frame~. This emulates the Unix shell behaviour
+of =C-z= issuing a =SIGTSTP= signal. This can be an annoying behaviour for GUI
+applications, where the concept of a background job isn't applicable.
+
+#+BEGIN_SRC emacs-lisp
+  (global-unset-key "\C-z")
+#+END_SRC
+
+
 * Style
 
 ** Font
