@@ -166,7 +166,16 @@ of =C-z= issuing a =SIGTSTP= signal. This can be an annoying behaviour for GUI
 applications, where the concept of a background job isn't applicable.
 
 #+BEGIN_SRC emacs-lisp
-  (global-unset-key "\C-z")
+  (global-unset-key (kbd "C-z"))
+#+END_SRC
+
+
+** Line Numbers
+
+Toggle line numbers.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c n") 'global-display-line-numbers-mode)
 #+END_SRC
 
 
