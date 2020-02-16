@@ -71,6 +71,9 @@ alias rr='rm -r'
 alias sudo='sudo '          # allow aliases in sudo commands
 alias sudos='sudo sh -c'    # execute multiple commands
 
+# tee
+alias t='tee'
+
 # tree
 alias tree='tree -Cl'
 alias trea='tree -a -I .git'
@@ -83,3 +86,6 @@ alias wcl='wc -l'   # lines
 
 # whatis
 alias wi='whatis'
+
+# xargs
+alias x='xargs'
