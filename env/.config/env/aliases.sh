@@ -78,12 +78,6 @@ alias t='tee'
 alias tree='tree -Cl'
 alias trea='tree -a -I .git'
 
-# wc
-alias wcc='wc -c'   # bytes
-alias wcm='wc -m'   # characters
-alias wcw='wc -w'   # words
-alias wcl='wc -l'   # lines
-
 # whatis
 alias wi='whatis'
 
