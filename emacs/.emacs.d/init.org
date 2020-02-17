@@ -492,6 +492,18 @@ Programming syntax checker.
 #+END_SRC
 
 
+** JSON
+
+https://elpa.gnu.org/packages/json-mode.html
+
+Major mode for editing JSON files.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package json-mode
+    :commands json-mode)
+#+END_SRC
+
+
 ** Language Server Protocol (LSP)
 
 https://microsoft.github.io/language-server-protocol/
