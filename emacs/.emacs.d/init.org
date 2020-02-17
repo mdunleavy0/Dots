@@ -430,7 +430,7 @@ from the package archives if it is not already present.
 
 #+BEGIN_SRC emacs-lisp
   (require 'use-package-ensure)
-  (setq use-package-always-defer t)
+  (setq use-package-always-ensure t)
 #+END_SRC
 
 
