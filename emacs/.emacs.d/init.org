@@ -547,6 +547,23 @@ Advanced user interface features for lsp-mode.
 
 
 
+** Multiple Cursors
+
+https://github.com/magnars/multiple-cursors.el
+
+Multiple cursors package with both keyboard and mouse functionality.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+    :init (unbind-key "C-<down-mouse-1>") ; mouse-buffer-menu
+    :bind (("C-c m" . 'mc/edit-lines)
+           ("C->" . 'mc/mark-next-like-this)
+           ("C-<" . 'mc/mark-previous-like-this)
+           ("C-c C->" . 'mc/mark-all-like-this)
+           ("C-<mouse-1>" . 'mc/add-cursor-on-click)))
+#+END_SRC
+
+
 ** Org Bullets
 
 https://github.com/sabof/org-bullets
