@@ -480,6 +480,18 @@ Auto-completion engine.
 #+END_SRC
 
 
+** Expand Region
+
+https://github.com/magnars/expand-region.el
+
+Expand the region by semantic units.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :bind ("C-=" . er/expand-region))     ; Use C-- C-= to shrink region
+#+END_SRC
+
+
 ** Flycheck
 
 https://www.flycheck.org/en/latest/
