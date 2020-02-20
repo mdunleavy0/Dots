@@ -341,6 +341,15 @@ Hide emphasis marker characters (such as '/'s for italics).
 
 * Miscellaneous
 
+** Mouse Autoselect Window
+
+Automatically select any window the mouse passes over.
+
+#+BEGIN_SRC emacs-lisp
+  (setq mouse-autoselect-window t)
+#+END_SRC
+
+
 ** Symbolic Links
 
 When visiting a symlink to a version controlled file, do not follow the
