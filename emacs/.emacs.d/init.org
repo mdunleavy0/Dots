@@ -190,6 +190,15 @@ equivalent of a /refresh/ command.
 #+END_SRC
 
 
+** Whitespace Mode
+
+Toggle whitespace indicators.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c w") 'whitespace-mode)
+#+END_SRC
+
+
 * Style
 
 ** Font
