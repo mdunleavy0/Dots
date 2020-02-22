@@ -34,6 +34,75 @@ out of ~init.el~ to a separate file.
 #+END_SRC
 
 
+* Elisp
+
+** Set Indentation
+
+#+BEGIN_SRC emacs-lisp
+  (defun mike-set-indentation (&optional arg)
+    "Modify `indent-tabs-mode' and optionally `tab-width'.
+  Combines functionality of toggling `indent-tabs-mode' (i.e. tabs
+  v. spaces), setting `indent-tabs-mode' and setting `tab-width';
+  depending on the prefix argument, ARG.
+
+  Calling this function without a prefix argument simply toggles
+  `indent-tabs-mode', as this is the the most common use-case.
+
+  ARG values of 0 and `-' set `indent-tabs-mode' to spaces and tabs
+  respectively.
+  \\[universal-argument] 0 \\[mike-set-indentation] sets `indent-tabs-mode' to nil (spaces).
+  \\[universal-argument] - \\[mike-set-indentation] sets `indent-tabs-mode' to t (tabs).
+
+  Positive values of ARG set `indent-tabs-mode' to spaces and set
+  `tab-width' to ARG characters.
+  \\[universal-argument] 2 \\[mike-set-indentation] sets indentation to 2 spaces.
+
+  Negative values of ARG set `indent-tabs-mode' to tabs and set
+  `tab-width' to (abs ARG) characters.
+  \\[universal-argument] -3 \\[mike-set-indentation] sets indentation to a tab of width 3."
+    (interactive "p")
+    (cond ((null current-prefix-arg) (setq indent-tabs-mode (not indent-tabs-mode)))
+          ((eq current-prefix-arg '-) (setq indent-tabs-mode t))
+          ((= arg 0) (setq indent-tabs-mode nil))
+          (t (setq indent-tabs-mode (< arg 0)
+                   tab-width (abs arg)))))
+#+END_SRC
+
+
+** Smarter C-a
+
+Taken from B. Batsov's [[https://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][Emacs Redux]] blog. Featured in [[https://github.com/bbatsov/prelude][Prelude]].
+
+Combine the functionality of ~back-to-indentation~ and ~move-beginning-of-line~ into
+one togglable command.
+
+Replicates the seldom-useful argument of ~move-beginning-of-line~.
+
+#+BEGIN_SRC emacs-lisp
+  (defun smarter-move-beginning-of-line (arg)
+    "Move point back to indentation of beginning of line.
+
+  Move point to the first non-whitespace character on this line.
+  If point is already there, move to the beginning of the line.
+  Effectively toggle between the first non-whitespace character and
+  the beginning of the line.
+
+  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+  point reaches the beginning or end of the buffer, stop there."
+    (interactive "^p")
+    (setq arg (or arg 1))
+
+    (when (/= arg 1)
+      (let ((line-move-visual nil))
+        (forward-line (1- arg))))
+
+    (let ((orig-point (point)))
+      (back-to-indentation)
+      (when (= orig-point (point))
+        (move-beginning-of-line 1))))
+#+END_SRC
+
+
 * User Interface
 
 ** Tool-bar & Menu-bar
@@ -159,14 +228,12 @@ spell-checker to be installed on the operating system.
 
 * Key Bindings
 
-** Suspend
+** Indentation
 
-By default =C-z= is bound to ~suspend-frame~. This emulates the Unix shell behaviour
-of =C-z= issuing a =SIGTSTP= signal. This can be an annoying behaviour for GUI
-applications, where the concept of a background job isn't applicable.
+Modify indentation character and width.
 
 #+BEGIN_SRC emacs-lisp
-  (global-unset-key (kbd "C-z"))
+  (global-set-key (kbd "C-c t") 'mike-set-indentation)
 #+END_SRC
 
 
@@ -201,40 +268,23 @@ Interactively set a *customisable* variable. See [[info:emacs#Examining][manual]
 
 ** Smarter C-a
 
-Taken from B. Batsov's [[https://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][Emacs Redux]] blog. Featured in [[https://github.com/bbatsov/prelude][Prelude]].
-
-Combine the functionality of ~back-to-indentation~ and ~move-beginning-of-line~ into
-one command and remap it to =C-a.= Calls ~back-to-indentation~, then if already at
-end of indentation, calls ~move-beginning-of-line.~
-
-Replicates the seldom-useful argument of ~move-beginning-of-line~.
+B. Batsov's ~back-to-indentation~ / ~move-beginning-of-line~ combo.
 
 #+BEGIN_SRC emacs-lisp
-  (defun smarter-move-beginning-of-line (arg)
-    "Move point back to indentation of beginning of line.
-
-  Move point to the first non-whitespace character on this line.
-  If point is already there, move to the beginning of the line.
-  Effectively toggle between the first non-whitespace character and
-  the beginning of the line.
-
-  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-  point reaches the beginning or end of the buffer, stop there."
-    (interactive "^p")
-    (setq arg (or arg 1))
-
-    (when (/= arg 1)
-      (let ((line-move-visual nil))
-        (forward-line (1- arg))))
-
-    (let ((orig-point (point)))
-      (back-to-indentation)
-      (when (= orig-point (point))
-        (move-beginning-of-line 1))))
-
   ;; remap C-a to `smarter-move-beginning-of-line'
   (global-set-key [remap move-beginning-of-line]
                   'smarter-move-beginning-of-line)
+#+END_SRC
+
+
+** Suspend
+
+By default =C-z= is bound to ~suspend-frame~. This emulates the Unix shell behaviour
+of =C-z= issuing a =SIGTSTP= signal. This can be an annoying behaviour for GUI
+applications, where the concept of a background job isn't applicable.
+
+#+BEGIN_SRC emacs-lisp
+  (global-unset-key (kbd "C-z"))
 #+END_SRC
 
 
