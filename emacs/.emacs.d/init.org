@@ -190,6 +190,15 @@ equivalent of a /refresh/ command.
 #+END_SRC
 
 
+** Set Variable
+
+Interactively set a *customisable* variable. See [[info:emacs#Examining][manual]] for more info.
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c v") 'set-variable)
+#+END_SRC
+
+
 ** Smarter C-a
 
 Taken from B. Batsov's [[https://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][Emacs Redux]] blog. Featured in [[https://github.com/bbatsov/prelude][Prelude]].
