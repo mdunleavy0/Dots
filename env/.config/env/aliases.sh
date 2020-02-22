@@ -1,7 +1,3 @@
-# cp
-alias cp='cp -i'
-alias cr='cp -r'
-
 # dd
 alias dd='dd status=progress'
 
@@ -45,9 +41,6 @@ alias l1a='ls -1A'
 # mkdir
 alias mkdir='mkdir -pv'
 
-# mv
-alias mv='mv -i'
-
 # nano
 alias nano='nano --mouse'
 
@@ -66,6 +59,11 @@ alias py='python'
 # rm
 alias rm='rm -I'
 alias rr='rm -r'
+
+# rsync
+alias rsync='rsync -r -hh --info=progress2,stats'
+alias copy='rsync'
+alias move='rsync --remove-source-files'
 
 # sudo
 alias sudo='sudo '          # allow aliases in sudo commands
