@@ -82,6 +82,15 @@ autoload -Uz promptinit
 promptinit
 prompt suseplus
 
+# window title
+case $TERM in
+    *xterm*|rxvt|alacritty)
+        title_precmd() {print -Pn "\e]2;%n@%m:%~\a"}
+        title_preexec() {print -Pn "\e]2;${${(z)2}[1]}\a"}
+        add-zsh-hook precmd title_precmd
+        add-zsh-hook preexec title_preexec
+        ;;
+esac
 
 ################################################################################
 
