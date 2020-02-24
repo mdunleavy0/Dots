@@ -239,6 +239,25 @@ from the [[info:emacs#Fonts][manual]].
 #+END_SRC
 
 
+*** Font Awesome
+
+[[https://fontawesome.com/][Font Awesome]] is popular icon font collection. A decent subset of its icons are
+available for free. Its primary audience is front-end web developers but it has
+also proven useful for Linux customisation.
+
+Presently, I use Font Awesome with [[https://github.com/Alexays/Waybar][Waybar]], a status bar for wlroots-based
+Wayland compositors. It is useful to be able to render these icons in Emacs when
+editing Waybar's configuration file.
+
+The following code prepends Font Awesome to the list of fallback
+fonts. (Appending doesn't work.)
+
+#+BEGIN_SRC emacs-lisp
+  (set-fontset-font t '(#xf00 .#xfbff) (font-spec :family "Font Awesome 5 Brands Regular") nil 'prepend)
+  (set-fontset-font t '(#xf00 .#xfbff) (font-spec :family "Font Awesome 5 Free Solid") nil 'prepend)
+#+END_SRC
+
+
 * Auto-saves & Backups
 
 ** Auto-saves

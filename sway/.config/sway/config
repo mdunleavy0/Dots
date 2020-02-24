@@ -5,6 +5,13 @@
 # onto a Wayland WM. This config will have a fair few BSPWM-isms. Also, I am not
 # Vim user so don't expect me to keep all the Vim-like keybindings.
 #
+# TODO: I still don't understand the nuances of i3/sway tiling. So window layout
+# bindings and settings remain a work in progress.
+#
+# TODO: Write my own Waybar stylesheet. (The default's pretty good.)
+#
+# TODO: Rearrange headings
+#
 
 
 #
@@ -26,31 +33,28 @@ set $gap 20px
 # Granularity of the resize window keybindings
 set $resize_step 20px
 
-# Your preferred terminal emulator
-set $term kitty
-
 
 #
 ### Outputs
 #
+
+set $out0 eDP-1
+set $out1 DP-1
+set $out2 DP-1
+set $out3 HDMI-A-1
 
 # Wallpaper
 # ~/pics/wallpaper is a symlink to whatever image I want. This way I don't have
 # to edit this file every time I change wallpaper.
 output * bg $(xdg-user-dir PICTURES)/wallpaper fill
 
-# Monitor config
-# Use integer scaling factors for best results.
-output eDP-1 scale 2
-
-# Note: XWayland windows will not be properly scaled for HiDPI outputs. Instead
-# they will be rendered at the default DPI and blown-up. This causes XWayland
-# windows to look blurry. Notable applications still requiring XWayland include
-# Emacs and Chromium. Sway 1.3-rc1 introduces the scale_filter feature which
-# applies a nearest-neighbor or linear scaling filter to the blown-up
-# buffers. This greatly mitigates the blurriness. (I'm pretty sure this
-# technique is how MacOS became the leader in HiDPI.) Seek out version 1.3-rc1
-# or greater where possible.
+# Note: XWayland windows will not scale properly for HiDPI outputs. Instead they
+# will be rendered at the default DPI and blown-up. This causes XWayland windows
+# to look blurry. Sway 1.3-rc1 introduces the scale_filter option which applies
+# nearest-neighbor or linear scaling filter to the blown-up buffers. This
+# greatly mitigates the blurriness. (I'm pretty sure this technique is how MacOS
+# became the leader in HiDPI.) Seek out version 1.3-rc1 or greater if using
+# HiDPI.
 
 
 #
@@ -68,6 +72,7 @@ input type:keyboard {
     xkb_layout ie
     xkb_options ctrl:swapcaps
 }
+
 
 #
 ### Key bindings
@@ -89,9 +94,15 @@ input type:keyboard {
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    #bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    # bindsym $mod+Shift+e exec swaynag \
+    #         -t warning \
+    #         -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' \
+    #         -b 'Yes, exit sway' 'swaymsg exit'
 
 # Applications
+
+    # Preferred terminal emulator
+    set $term kitty
 
     # Terminal
     bindsym $mod+return         exec $term
@@ -140,36 +151,107 @@ input type:keyboard {
 
 # Workspaces
 
+    # Workspace indices and names
+    set $ws01 01:I
+    set $ws02 02:II
+    set $ws03 03:III
+    set $ws04 04:IV
+    set $ws05 05:V
+    set $ws06 06:VI
+    set $ws07 07:VII
+    set $ws08 08:VIII
+    set $ws09 09:IX
+    set $ws10 10:X
+    set $ws11 11:ƒ1
+    set $ws12 12:ƒ2
+    set $ws13 13:ƒ3
+    set $ws14 14:ƒ4
+    set $ws15 15:ƒ5
+    set $ws16 16:ƒ6
+    set $ws17 17:ƒ7
+    set $ws18 18:ƒ8
+    set $ws19 19:ƒ9
+    set $ws20 20:ƒ10
+    set $ws21 21:ƒ11
+    set $ws22 22:ƒ12
+    # 22 is enough, right?
+
+    # Associate workspaces with outputs
+    workspace $ws01 output $out0
+    workspace $ws02 output $out0
+    workspace $ws03 output $out0
+    workspace $ws04 output $out0
+    workspace $ws05 output $out0
+    workspace $ws06 output $out0
+    workspace $ws07 output $out0
+    workspace $ws08 output $out0
+    workspace $ws09 output $out0
+    workspace $ws10 output $out0
+    workspace $ws11 output $out1
+    workspace $ws12 output $out1
+    workspace $ws13 output $out1
+    workspace $ws14 output $out1
+    workspace $ws15 output $out2
+    workspace $ws16 output $out2
+    workspace $ws17 output $out2
+    workspace $ws18 output $out2
+    workspace $ws19 output $out3
+    workspace $ws20 output $out3
+    workspace $ws21 output $out3
+    workspace $ws22 output $out3
+
     # Focus on workspace
-    bindsym $mod+1  workspace I
-    bindsym $mod+2  workspace II
-    bindsym $mod+3  workspace III
-    bindsym $mod+4  workspace IV
-    bindsym $mod+5  workspace V
-    bindsym $mod+6  workspace VI
-    bindsym $mod+7  workspace VII
-    bindsym $mod+8  workspace VIII
-    bindsym $mod+9  workspace IX
-    bindsym $mod+0  workspace X
+    bindsym $mod+1      workspace $ws01
+    bindsym $mod+2      workspace $ws02
+    bindsym $mod+3      workspace $ws03
+    bindsym $mod+4      workspace $ws04
+    bindsym $mod+5      workspace $ws05
+    bindsym $mod+6      workspace $ws06
+    bindsym $mod+7      workspace $ws07
+    bindsym $mod+8      workspace $ws08
+    bindsym $mod+9      workspace $ws09
+    bindsym $mod+0      workspace $ws10
+    bindsym $mod+F1     workspace $ws11
+    bindsym $mod+F2     workspace $ws12
+    bindsym $mod+F3     workspace $ws13
+    bindsym $mod+F4     workspace $ws14
+    bindsym $mod+F5     workspace $ws15
+    bindsym $mod+F6     workspace $ws16
+    bindsym $mod+F7     workspace $ws17
+    bindsym $mod+F8     workspace $ws18
+    bindsym $mod+F9     workspace $ws19
+    bindsym $mod+F10    workspace $ws20
+    bindsym $mod+F11    workspace $ws21
+    bindsym $mod+F12    workspace $ws22
+
     # Move focused container to workspace
-    bindsym $mod+Shift+1    move container to workspace I
-    bindsym $mod+Shift+2    move container to workspace II
-    bindsym $mod+Shift+3    move container to workspace III
-    bindsym $mod+Shift+4    move container to workspace IV
-    bindsym $mod+Shift+5    move container to workspace V
-    bindsym $mod+Shift+6    move container to workspace VI
-    bindsym $mod+Shift+7    move container to workspace VII
-    bindsym $mod+Shift+8    move container to workspace VIII
-    bindsym $mod+Shift+9    move container to workspace IX
-    bindsym $mod+Shift+0    move container to workspace X
+    bindsym $mod+Shift+1    move container to workspace $ws01
+    bindsym $mod+Shift+2    move container to workspace $ws02
+    bindsym $mod+Shift+3    move container to workspace $ws03
+    bindsym $mod+Shift+4    move container to workspace $ws04
+    bindsym $mod+Shift+5    move container to workspace $ws05
+    bindsym $mod+Shift+6    move container to workspace $ws06
+    bindsym $mod+Shift+7    move container to workspace $ws07
+    bindsym $mod+Shift+8    move container to workspace $ws08
+    bindsym $mod+Shift+9    move container to workspace $ws09
+    bindsym $mod+Shift+0    move container to workspace $ws10
+    bindsym $mod+Shift+F1   move container to workspace $ws11
+    bindsym $mod+Shift+F2   move container to workspace $ws12
+    bindsym $mod+Shift+F3   move container to workspace $ws13
+    bindsym $mod+Shift+F4   move container to workspace $ws14
+    bindsym $mod+Shift+F5   move container to workspace $ws15
+    bindsym $mod+Shift+F6   move container to workspace $ws16
+    bindsym $mod+Shift+F7   move container to workspace $ws17
+    bindsym $mod+Shift+F8   move container to workspace $ws18
+    bindsym $mod+Shift+F9   move container to workspace $ws19
+    bindsym $mod+Shift+F10  move container to workspace $ws20
+    bindsym $mod+Shift+F11  move container to workspace $ws21
+    bindsym $mod+Shift+F12  move container to workspace $ws22
 
 # Layout
 
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    # Toggle split direction
+    bindsym $mod+x splitt
 
     # Switch the current container between different layout styles
     bindsym $mod+f floating toggle
@@ -192,27 +274,32 @@ input type:keyboard {
     bindsym $mod+alt+up         resize grow height $resize_step
     bindsym $mod+alt+right      resize grow width $resize_step
 
-# Aesthetics
 
-    # Gaps between windows
-    gaps inner $gap
+#
+# Aesthetics
+#
+
+# Gaps between windows
+gaps inner $gap
+
+# Remove titlebar and set border width
+default_border pixel 5
+
 
 #
 # Status Bar
 #
-# Read `man 5 sway-bar` for more information about this section.
+
+# Waybar provides the experience I was used to on BSPWM. Namely, ten workspaces
+# at all times and window titles in the centre of the bar. Plus it plays well
+# with multi-monitor setups.
 bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
+    swaybar_command waybar
 }
 
-include /etc/sway/config.d/*
+# Waybar does not position tooltips correctly. See issue #63. This fix by
+# @alebastr moves tooltips closer to the cursor.
+for_window [app_id="waybar" floating] {
+    move position cursor
+    move down 130px         # adjust if some menus still don't fit
+}
