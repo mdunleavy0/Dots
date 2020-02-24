@@ -124,17 +124,12 @@ Replicates the seldom-useful argument of ~move-beginning-of-line~.
 
 * User Interface
 
-** Tool-bar & Menu-bar
+** Column Numbers
 
-The tool-bar provides pictorial icons for editing tasks like save and undo. The
-menu-bar provides textual drop-down menus for a wider range of tasks. Active
-modes may add menu-bar menus. Both bars could be considered obtrusive. I do
-however like the contextual menu-bar entries. They are useful in unfamiliar
-modes.
+Add the column number next to row number on the mode line.
 
 #+BEGIN_SRC emacs-lisp
-  (tool-bar-mode -1)
-  ;;(menu-bar-mode -1)
+  (column-number-mode 1)
 #+END_SRC
 
 
@@ -148,12 +143,25 @@ navigation options and the row information on the mode line.
 #+END_SRC
 
 
-** Column Numbers
+** Terminal Mouse
 
-Add the column number next to row number on the mode line.
+Enable mouse when running Emacs from xterm compatible terminal emulators.
 
 #+BEGIN_SRC emacs-lisp
-  (column-number-mode 1)
+  (xterm-mouse-mode 1)
+#+END_SRC
+
+
+** Tool-bar & Menu-bar
+
+The tool-bar provides pictorial icons for editing tasks like save and undo. The
+menu-bar provides textual drop-down menus for a wider range of tasks. Active
+modes may add menu-bar menus. Both bars can be considered obtrusive. However,
+the contextual menu-bar entries are useful in unfamiliar modes.
+
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode -1)
+  ;;(menu-bar-mode -1)
 #+END_SRC
 
 
