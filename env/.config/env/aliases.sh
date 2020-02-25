@@ -24,12 +24,14 @@ alias free='free -h'
 # See git-config(1) for info on git aliases.
 
 # grep
-alias grep='grep --color=auto';     alias g='grep'
-alias egrep='egrep --color=auto';   alias ge='egrep'
-alias fgrep='fgrep --color=auto';   alias gf='fgrep'
-alias Grep='grep -i';               alias G='Grep'
-alias eGrep='egrep -i';             alias Ge='eGrep'
-alias fGrep='fgrep -i';             alias Gf='fGrep'
+alias g='grep'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias G='Grep'
+alias Grep='grep -i'
+alias eGrep='egrep -i'
+alias fGrep='fgrep -i'
 
 # ls
 alias ls='ls --color=auto'
