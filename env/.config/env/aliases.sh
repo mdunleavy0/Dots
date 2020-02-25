@@ -73,6 +73,7 @@ alias sudos='sudo sh -c'    # execute multiple commands
 
 # tee
 alias t='tee'
+alias tea='tee -a'
 
 # tree
 alias tree='tree -Cl'
