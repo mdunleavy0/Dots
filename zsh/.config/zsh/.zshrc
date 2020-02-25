@@ -49,8 +49,7 @@ emulate sh -c 'source $XDG_CONFIG_HOME/env/functions.sh'
 
 # global aliases
 # Aliases that can occur anywhere in a command, not just the first word.
-alias -g ¦='| tee'
-alias -g ¦¦='| tee -a'
+alias -g ¦='| xargs'
 
 # globbing
 setopt extended_glob    # extra globbing operators
