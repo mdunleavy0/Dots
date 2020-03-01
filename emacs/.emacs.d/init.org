@@ -530,7 +530,9 @@ from the package archives if it is not already present.
 https://github.com/josteink/csharp-mode
 
 #+BEGIN_SRC emacs-lisp
-  (use-package csharp-mode)
+  (use-package csharp-mode
+    :mode "\\.cs\\'"
+    :commands csharp-mode)
 #+END_SRC
 
 
@@ -603,6 +605,7 @@ Major mode for editing JSON files.
 
 #+BEGIN_SRC emacs-lisp
   (use-package json-mode
+    :mode "\\.json\\'"
     :commands json-mode)
 #+END_SRC
 
@@ -618,6 +621,7 @@ implementations. Provides a generic way to turn editors into IDEs.
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
     :hook (scala-mode . lsp)
+    :commands lsp
     :config (setq lsp-enable-snippet nil))
 #+END_SRC
 
@@ -688,7 +692,9 @@ The Scala programming language.
 
 #+BEGIN_SRC emacs-lisp
   (use-package scala-mode
-    :interpreter "scala")
+    :interpreter "scala"
+    :mode ("\\.scala\\'" "\\.sbt\\'")
+    :commands scala-mode)
 #+END_SRC
 
 
@@ -701,7 +707,7 @@ The Scala Build Tool.
 
 #+BEGIN_SRC emacs-lisp
   (use-package sbt-mode
-    :commands sbt-start sbt-command
+    :commands (sbt-start sbt-command)
     :config
     ;; WORKAROUND: allows using SPACE when in the minibuffer
     (substitute-key-definition
@@ -719,7 +725,8 @@ https://github.com/larstvei/Try
 to your system. In other words it lets you try a package out before installing.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package try)
+  (use-package try
+    :commands try)
 #+END_SRC
 
 
