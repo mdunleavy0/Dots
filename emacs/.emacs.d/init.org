@@ -415,6 +415,15 @@ cron-job to delete that are over 1 week old.
 
 * Org
 
+** Emphasis
+
+Hide emphasis marker characters (such as '/'s for italics).
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-hide-emphasis-markers t)
+#+END_SRC
+
+
 ** Indentation
 
 Indent text according to outline structure. (Calls =org-indent-mode=.)
@@ -424,12 +433,22 @@ Indent text according to outline structure. (Calls =org-indent-mode=.)
 #+END_SRC
 
 
-** Emphasis
+** Structure Templates
 
-Hide emphasis marker characters (such as '/'s for italics).
+Completions for Org blocks and other structures. As an example =q= is the
+abbreviation for quote blocks. Typing =<q TAB= will print a empty quote block and
+move the point inside it.
+
+Several default completions are available. This code adds custom
+completions. The question mark character denotes the cursor position.
+
+Org version 9.2 will introduce new default behaviours for structure
+templates. Configuration changes will be required.
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-hide-emphasis-markers t)
+  (with-eval-after-load 'org
+    (add-to-list 'org-structure-template-alist
+                 '("el" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC")))
 #+END_SRC
 
 
