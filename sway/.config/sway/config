@@ -102,10 +102,10 @@ input type:keyboard {
 # Applications
 
     # Preferred terminal emulator
-    set $term kitty
+    set $term alacritty -e
 
     # Terminal
-    bindsym $mod+return         exec $term
+    bindsym $mod+return         exec alacritty
 
     # Application launcher
     bindsym $mod+space          exec rofi -show drun

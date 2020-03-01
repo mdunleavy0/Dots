@@ -735,6 +735,20 @@ Displays suggestions for unfinished key-bindings.
 #+END_SRC
 
 
+** YAML
+
+https://yaml.org/
+https://github.com/yoshiki/yaml-mode
+
+YAML Ain't Markup Language
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
+    :mode ("\\.yaml\\'" "\\.yml\\'")
+    :commands yaml-mode)
+#+END_SRC
+
+
 * Key Bindings
 
 ** Bind-key
