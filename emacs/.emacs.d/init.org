@@ -143,6 +143,18 @@ navigation options and the row information on the mode line.
 #+END_SRC
 
 
+** Splash Screen
+
+Disable the 'Welcome to GNU Emacs' startup screen.
+
+I'd been putting off disabling this until I found a good alternative splash
+screen; but frankly I don't even know what I want in a splash screen.
+
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-splash-screen t)
+#+END_SRC
+
+
 ** Terminal Mouse
 
 Enable mouse when running Emacs from xterm compatible terminal emulators.
