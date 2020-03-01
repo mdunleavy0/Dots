@@ -40,7 +40,7 @@ set $resize_step 20px
 
 set $out0 eDP-1
 set $out1 DP-1
-set $out2 DP-1
+set $out2 DP-2
 set $out3 HDMI-A-1
 
 # Wallpaper
@@ -293,9 +293,7 @@ default_border pixel 5
 # Waybar provides the experience I was used to on BSPWM. Namely, ten workspaces
 # at all times and window titles in the centre of the bar. Plus it plays well
 # with multi-monitor setups.
-bar {
-    swaybar_command waybar
-}
+bar swaybar_command waybar
 
 # Waybar does not position tooltips correctly. See issue #63. This fix by
 # @alebastr moves tooltips closer to the cursor.
@@ -303,3 +301,10 @@ for_window [app_id="waybar" floating] {
     move position cursor
     move down 130px         # adjust if some menus still don't fit
 }
+
+
+#
+# Notifications
+#
+
+exec mako
