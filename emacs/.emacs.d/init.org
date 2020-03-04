@@ -790,6 +790,15 @@ Clean up a variety of whitespace problems.
 #+END_SRC
 
 
+** Diff
+
+Diff buffer with its associated file, showing unsaved changes.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c d" 'diff-buffer-with-file)
+#+END_SRC
+
+
 ** Indentation
 
 Modify indentation character and width.
