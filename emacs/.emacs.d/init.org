@@ -36,21 +36,6 @@ out of ~init.el~ to a separate file.
 
 * Elisp
 
-** Indentify
-
-#+BEGIN_SRC emacs-lisp
-  (defun mike-indentify (start end &optional _arg)
-    "If `indent-tabs-mode', call `tabify', else call `untabify'.
-  Arguments START, END and _ARG behave analogously to their
-  `tabify'/`untabify' counterparts."
-    (interactive (if current-prefix-arg
-                     (list (point-min) (point-max) current-prefix-arg)
-                   (list (region-beginning) (region-end) nil)))
-    (if indent-tabs-mode
-        (tabify start end _arg)
-      (untabify start end _arg)))
-#+END_SRC
-
 
 ** Set Indentation
 
@@ -818,12 +803,6 @@ Modify indentation character and width.
   (bind-key "C-c t" 'mike-set-indentation)
 #+END_SRC
 
-Call ~tabify~ or ~untabify~, depending on ~indent-tabs-mode~.
-
-#+BEGIN_SRC emacs-lisp
-  (bind-key "C-c T" 'mike-indentify)
-#+END_SRC
-
 
 ** Line Numbers
 
@@ -884,3 +863,8 @@ Toggle whitespace indicators.
   (bind-key "C-c w" 'whitespace-mode)
 #+END_SRC
 
+Clean up a variety of whitespace problems.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c W" 'whitespace-cleanup)
+#+END_SRC
