@@ -781,6 +781,15 @@ Emacs' default keybindings.
 #+END_SRC
 
 
+** Cleanup Whitespace
+
+Clean up a variety of whitespace problems.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c c" 'whitespace-cleanup)
+#+END_SRC
+
+
 ** Indentation
 
 Modify indentation character and width.
@@ -838,8 +847,3 @@ Toggle whitespace indicators.
   (bind-key "C-c w" 'whitespace-mode)
 #+END_SRC
 
-Clean up a variety of whitespace problems.
-
-#+BEGIN_SRC emacs-lisp
-  (bind-key "C-c W" 'whitespace-cleanup)
-#+END_SRC
