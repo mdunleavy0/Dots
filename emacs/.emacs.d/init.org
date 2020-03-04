@@ -36,7 +36,6 @@ out of ~init.el~ to a separate file.
 
 * Elisp
 
-
 ** Set Indentation
 
 #+BEGIN_SRC emacs-lisp
@@ -70,40 +69,6 @@ out of ~init.el~ to a separate file.
     (message "Set indentation: %s (width %s)"
              (if indent-tabs-mode "tabs" "spaces")
              tab-width))
-#+END_SRC
-
-
-** Smarter C-a
-
-Taken from B. Batsov's [[https://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][Emacs Redux]] blog. Featured in [[https://github.com/bbatsov/prelude][Prelude]].
-
-Combine the functionality of ~back-to-indentation~ and ~move-beginning-of-line~ into
-one togglable command.
-
-Replicates the seldom-useful argument of ~move-beginning-of-line~.
-
-#+BEGIN_SRC emacs-lisp
-  (defun smarter-move-beginning-of-line (arg)
-    "Move point back to indentation of beginning of line.
-
-  Move point to the first non-whitespace character on this line.
-  If point is already there, move to the beginning of the line.
-  Effectively toggle between the first non-whitespace character and
-  the beginning of the line.
-
-  If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-  point reaches the beginning or end of the buffer, stop there."
-    (interactive "^p")
-    (setq arg (or arg 1))
-
-    (when (/= arg 1)
-      (let ((line-move-visual nil))
-        (forward-line (1- arg))))
-
-    (let ((orig-point (point)))
-      (back-to-indentation)
-      (when (= orig-point (point))
-        (move-beginning-of-line 1))))
 #+END_SRC
 
 
@@ -589,6 +554,27 @@ Auto-completion engine.
 #+END_SRC
 
 
+
+** CRUX
+
+https://github.com/bbatsov/crux
+
+Bozhidar Batsov's /Collection of Ridiculous Useful eXtensions/ is a set small
+elisp functions to improve editting. The package comes with no default
+keybindings. That way if you aren't interested in a command, you can easily
+ignore it.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package crux
+    :defer nil
+    :bind (([remap move-beginning-of-line] . crux-move-beginning-of-line)
+           ("C-c e" . crux-eval-and-replace)
+           ("C-c D" . crux-delete-file-and-buffer)
+           ("C-c R" . crux-rename-file-and-buffer)
+           ("C-c s" . crux-sudo-edit)))
+#+END_SRC
+
+
 ** Expand Region
 
 https://github.com/magnars/expand-region.el
@@ -830,17 +816,6 @@ Interactively set a *customisable* variable. See [[info:emacs#Examining][manual]
 
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c v" 'set-variable)
-#+END_SRC
-
-
-** Smarter C-a
-
-B. Batsov's ~back-to-indentation~ / ~move-beginning-of-line~ combo.
-
-#+BEGIN_SRC emacs-lisp
-  ;; remap C-a to `smarter-move-beginning-of-line'
-  (bind-key [remap move-beginning-of-line]
-            'smarter-move-beginning-of-line)
 #+END_SRC
 
 
