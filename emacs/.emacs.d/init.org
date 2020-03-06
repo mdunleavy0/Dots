@@ -424,6 +424,15 @@ directory.)
 #+END_SRC
 
 
+** Yes or No Prompts
+
+Replace yes/no prompts with y/n prompts.
+
+#+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+
 * External Packages
 
 ** Prerequisites
