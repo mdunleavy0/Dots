@@ -308,3 +308,16 @@ for_window [app_id="waybar" floating] {
 #
 
 exec mako
+
+
+#
+# Theme
+#
+
+# Base16 colour theme generated with pybase16
+include "~/.local/share/base16/output/sway/themes/base16-selected.config"
+#                       Border  BG      Text    Ind     Child Border
+client.focused          $base05 $base0D $base00 $base0D $base0C
+client.focused_inactive $base01 $base01 $base05 $base03 $base01
+client.unfocused        $base01 $base00 $base05 $base01 $base01
+client.urgent           $base08 $base08 $base00 $base08 $base08

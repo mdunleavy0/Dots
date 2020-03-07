@@ -515,6 +515,26 @@ from the package archives if it is not already present.
 #+END_SRC
 
 
+** Base16
+
+https://github.com/chriskempson/base16
+https://github.com/belak/base16-emacs
+
+Base16 is a standard for defining colour schemes. A base16 scheme consists of 8
+accent colours and 8 base colours. These schemes can be applied to a variety of
+applications via standardised templates.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package base16-theme
+    :init
+    (add-to-list 'custom-theme-load-path
+                 "~/.local/share/base16/output/emacs/build/")
+    (setq base16-theme-256-color-source 'base16-shell
+          base16-highlight-mode-line 'contrast)
+    :config (load-theme 'base16-selected t))
+#+END_SRC
+
+
 ** C#
 
 https://github.com/josteink/csharp-mode
