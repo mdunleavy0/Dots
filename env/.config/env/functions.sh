@@ -1,3 +1,10 @@
+# fix
+# Hide standard error.
+fix() {
+    "$@" 2>/dev/null
+}
+
+
 # ls
 # Count entries from ls.
 # Passes all flags to ls.

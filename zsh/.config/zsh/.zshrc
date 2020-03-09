@@ -9,6 +9,13 @@ unsetopt beep
 autoload -Uz compinit
 compinit
 
+# completions - analogues
+# Apply existing completions to new commands.
+compdef fix=-
+compdef lc=ls
+compdef mkcd=mkdir
+compdef sortip=sort
+
 # completions - colour
 # Colour file completions.
 if type dircolors > /dev/null; then
