@@ -43,9 +43,6 @@ alias l1a='ls -1A'
 # mkdir
 alias mkdir='mkdir -pv'
 
-# nano
-alias nano='nano --mouse'
-
 # od
 alias xd='od -txz'
 
