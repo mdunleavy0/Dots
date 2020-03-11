@@ -14,7 +14,7 @@ alias e="$EDITOR"       # terminal text editor
 alias v="$VISUAL"       # GUI text editor
 
 # emerge
-# only useful as root
+# Only useful as root.
 alias emerge='emerge -a'
 
 # free
@@ -39,6 +39,10 @@ alias la='ls -A'            # include hidden files
 alias ll='ls -AFhl'         # long format
 alias l1='ls -1'            # one entry per line
 alias l1a='ls -1A'
+
+# man
+# Because I have trouble typing apropos.
+alias mank='man -k'
 
 # mkdir
 alias mkdir='mkdir -pv'
