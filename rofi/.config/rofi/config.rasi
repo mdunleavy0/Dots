@@ -4,8 +4,8 @@ configuration {
 }
 
 
-/* %%base16_template: rofi##default %% */
-/* %%base16_template_end%% */
+// %%base16_template: rofi##default %%
+// %%base16_template_end%%
 
 
 window {
