@@ -64,7 +64,7 @@ setopt glob_dots        # glob hidden files
 
 # help
 autoload -Uz run-help
-unalias run-help
+unalias run-help 2>/dev/null
 alias help=run-help
 
 # history
