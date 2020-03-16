@@ -1,6 +1,9 @@
 # dd
 alias dd='dd status=progress'
 
+# df
+alias df='df -h'
+
 # diff
 alias diff='diff --color=auto'
 
@@ -41,7 +44,7 @@ alias l1='ls -1'            # one entry per line
 alias l1a='ls -1A'
 
 # man
-# Because I have trouble typing apropos.
+# Because I have trouble typing 'apropos'.
 alias mank='man -k'
 
 # mkdir
