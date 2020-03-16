@@ -50,9 +50,6 @@ alias mank='man -k'
 # mkdir
 alias mkdir='mkdir -pv'
 
-# od
-alias xd='od -txz'
-
 # pager
 alias p="$PAGER"
 
