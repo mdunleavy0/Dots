@@ -629,6 +629,17 @@ Programming syntax checker.
 #+END_SRC
 
 
+** Htmlize
+
+https://github.com/hniksic/emacs-htmlize
+
+Converts buffers to HTML. Required for Org HTML exports.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package htmlize)
+#+END_SRC
+
+
 ** JSON
 
 https://elpa.gnu.org/packages/json-mode.html
