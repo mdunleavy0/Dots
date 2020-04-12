@@ -414,6 +414,19 @@ Automatically select any window the mouse passes over.
 #+END_SRC
 
 
+** Shell Script
+
+*** Default shell
+
+Set the default shell for =sh-mode= to the plain Bourne shell. Emacs' stock
+behaviour is to set it to ~$SHELL~ or an equivalent. I prefer to use =zsh= as my
+interactive shell but script in either =sh= or =bash= for portability.
+
+#+BEGIN_SRC emacs-lisp
+  (setq sh-shell-file "/bin/sh")
+#+END_SRC
+
+
 ** Symbolic Links
 
 When visiting a symlink to a version controlled file, do not follow the
