@@ -835,6 +835,15 @@ Emacs' default keybindings.
 #+END_SRC
 
 
+** Build
+
+Build the program including the current buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c b" 'compile)
+#+END_SRC
+
+
 ** Cleanup Whitespace
 
 Clean up a variety of whitespace problems.
