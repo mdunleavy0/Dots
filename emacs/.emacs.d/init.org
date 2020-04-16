@@ -677,6 +677,9 @@ implementations. Provides a generic way to turn editors into IDEs.
 #+BEGIN_SRC emacs-lisp
   (use-package lsp-mode
     :hook (scala-mode . lsp)
+    :init
+    ;; disable library/header-file auto-import
+    (setq lsp-clients-clangd-args '("-header-insertion=never"))
     :commands lsp
     :config (setq lsp-enable-snippet nil))
 #+END_SRC
