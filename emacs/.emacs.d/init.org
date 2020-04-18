@@ -438,6 +438,22 @@ directory.)
 #+END_SRC
 
 
+** Tramp
+
+Change Tramp's preferred remote access method from ="scp"= to ="ssh"=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq tramp-default-method "ssh")
+#+END_SRC
+
+Enable the shorthand Tramp syntax of ~C-x C-f /user@host:file~. This is equivalent
+to ~C-x C-f /method:user@host:file~. (This was on by default before Emacs 26.)
+
+#+BEGIN_SRC emacs-lisp
+  (customize-set-variable 'tramp-syntax 'simplified)
+#+END_SRC
+
+
 ** Yes or No Prompts
 
 Replace yes/no prompts with y/n prompts.
