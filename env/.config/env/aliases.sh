@@ -13,8 +13,8 @@ alias dush='du -sh'
 # editor
 # Single quotes mean variable is expanded at invokation; but this behaves
 # undesirably with zsh.
-alias e="$EDITOR"       # terminal text editor
-alias v="$VISUAL"       # GUI text editor
+alias e="$EDITOR"               # terminal text editor
+alias v="$VISUAL"               # GUI text editor
 
 # emerge
 # Only useful as root.
@@ -69,8 +69,8 @@ alias copy='rsync'
 alias move='rsync --remove-source-files'
 
 # sudo
-alias sudo='sudo '          # allow aliases in sudo commands
-alias sudos='sudo sh -c'    # execute multiple commands
+alias sudo='sudo '              # allow aliases in sudo commands
+alias sudos='sudo sh -c'        # execute multiple commands
 
 # tee
 alias t='tee'
@@ -84,4 +84,5 @@ alias trea='tree -a -I .git'
 alias wi='whatis'
 
 # xargs
+alias xargs='xargs '            # allow aliases in xargs commands
 alias x='xargs'
