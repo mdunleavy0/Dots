@@ -1,3 +1,14 @@
+# emacs
+# Tramp, aptly naming itself 'dumb', can't cope with zsh's fancy features. Unset
+# the major offenders and return early.
+if [ $TERM = 'dumb' ]; then
+    unsetopt zle
+    PS1='$ '
+    return
+fi
+
+################################################################################
+
 # auto-pushd
 # Push directories to the stack with cd (because I never remember to use pushd).
 setopt auto_pushd
