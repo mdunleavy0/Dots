@@ -71,6 +71,9 @@ input type:touchpad {
 input type:keyboard {
     xkb_layout ie
     xkb_options ctrl:swapcaps
+
+    repeat_delay 400
+    repeat_rate 40
 }
 
 
