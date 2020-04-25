@@ -863,6 +863,7 @@ Build the program including the current buffer.
 
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c b" 'compile)
+  (bind-key "C-c B" 'kill-compilation)
 #+END_SRC
 
 
