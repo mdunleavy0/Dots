@@ -689,8 +689,7 @@ implementations. Provides a generic way to turn editors into IDEs.
     :init
     ;; disable library/header-file auto-import
     (setq lsp-clients-clangd-args '("-header-insertion=never"))
-    :commands lsp
-    :config (setq lsp-enable-snippet nil))
+    :commands lsp)
 #+END_SRC
 
 
@@ -821,6 +820,17 @@ YAML Ain't Markup Language
   (use-package yaml-mode
     :mode ("\\.yaml\\'" "\\.yml\\'")
     :commands yaml-mode)
+#+END_SRC
+
+
+** Yasnippet
+
+https://github.com/joaotavora/yasnippet
+
+A fill-in-the-blanks template system for completions. Integrates with [[*Language Server Protocol (LSP)][LSP mode]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet)
 #+END_SRC
 
 
