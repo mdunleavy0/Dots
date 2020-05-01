@@ -27,7 +27,10 @@ esac
 
 # emerge
 # Only useful as root.
-[ "$PACKAGING" = portage ] && alias emerge='emerge -a'
+if [ "$PACKAGING" = portage ]; then
+    alias emerge='emerge -a'
+    alias emerge-up='emerge -uDU --with-bdeps=y @world'
+fi
 
 # free
 case $OS in
