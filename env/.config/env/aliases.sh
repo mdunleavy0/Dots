@@ -103,6 +103,9 @@ if command -v sudo >/dev/null; then
     alias sudos='sudo sh -c'    # execute multiple commands
 fi
 
+# systemctl
+[ "$INIT" = systemd ] && alias sd='systemctl'
+
 # tee
 alias t='tee'
 alias tea='tee -a'
