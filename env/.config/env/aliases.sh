@@ -81,8 +81,12 @@ command -v printenv >/dev/null &&
     alias printenv='printenv | sort'
 
 # python
-command -v python >/dev/null &&
+# 'env python' still aliases to python2 on many systems
+if command -v python3 >/dev/null; then
+    alias py='python3'
+elif command -v python >/dev/null; then
     alias py='python'
+fi
 
 # rm
 case $OS in
