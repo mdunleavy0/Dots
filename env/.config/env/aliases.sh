@@ -73,6 +73,9 @@ case $OS in
     *) alias mkdir='mkdir -p'
 esac
 
+# pacman
+[ "$PACKAGING" = pacman ] && alias syu='pacman -Syu'
+
 # pager
 alias p="$PAGER"
 
