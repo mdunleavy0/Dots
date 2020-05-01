@@ -1,46 +1,66 @@
 # dd
-alias dd='dd status=progress'
+case $OS in
+    gnu*) alias dd='dd status=progress'
+esac
 
 # df
-alias df='df -h'
+case $OS in
+    # -h for human-readable is ubiquitous but non-posix
+    gnu*|freebsd|macos) alias df='df -h'
+esac
 
 # diff
-alias diff='diff --color=auto'
+case $OS in
+    gnu*) alias diff='diff --color=auto'
+esac
 
 # du
-alias dush='du -sh'
+case $OS in
+    gnu*|freebsd|macos) alias dush='du -sh'
+esac
 
 # editor
 # Single quotes mean variable is expanded at invokation; but this behaves
 # undesirably with zsh.
-alias e="$EDITOR"               # terminal text editor
-alias v="$VISUAL"               # GUI text editor
+[ -n "$EDITOR" ] && alias e="$EDITOR" # terminal text editor
+[ -n "$VISUAL" ] && alias v="$VISUAL" # GUI text editor
 
 # emerge
 # Only useful as root.
-alias emerge='emerge -a'
+[ "$PACKAGING" = portage ] && alias emerge='emerge -a'
 
 # free
-alias free='free -h'
+case $OS in
+    gnu*|freebsd|macos) alias free='free -h'
+esac
 
 # git
 # See git-config(1) for info on git aliases.
 
 # grep
 alias g='grep'
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
+case $OS in
+    gnu*|freebsd|macos)
+        alias grep='grep --color=auto'
+        alias egrep='egrep --color=auto'
+        alias fgrep='fgrep --color=auto'
+esac
 alias G='Grep'
 alias Grep='grep -i'
-alias eGrep='egrep -i'
-alias fGrep='fgrep -i'
+command -v egrep >/dev/null && alias eGrep='egrep -i'
+command -v fgrep >/dev/null && alias fGrep='fgrep -i'
 
 # ls
-alias ls='ls --color=auto'
-alias la='ls -A'            # include hidden files
-alias ll='ls -AFhl'         # long format
-alias l1='ls -1'            # one entry per line
+case $OS in
+    gnu*|freebsd) alias ls='ls --color=auto'
+esac
+alias la='ls -A'                # include hidden files
+case $OS in
+     # long format
+    gnu*|freebsd|macos) alias ll='ls -AFhl';;
+    *) alias ll='ls -AFl'
+esac
+alias l1='ls -1'                # one entry per line
 alias l1a='ls -1A'
 
 # man
@@ -48,40 +68,54 @@ alias l1a='ls -1A'
 alias mank='man -k'
 
 # mkdir
-alias mkdir='mkdir -pv'
+case $OS in
+    gnu*|freebsd|macos) alias mkdir='mkdir -pv';;
+    *) alias mkdir='mkdir -p'
+esac
 
 # pager
 alias p="$PAGER"
 
 # printenv
-alias printenv='printenv | sort'
+command -v printenv >/dev/null &&
+    alias printenv='printenv | sort'
 
 # python
-alias py='python'
+command -v python >/dev/null &&
+    alias py='python'
 
 # rm
-alias rm='rm -I'
+case $OS in
+    gnu*|freebsd) alias rm='rm -I' # prompt up to 3 times
+esac
 alias rr='rm -r'
 
 # rsync
-alias rsync='rsync -r -hh --info=progress2,stats'
-alias copy='rsync'
-alias move='rsync --remove-source-files'
+if command -v rsync >/dev/null; then
+    alias rsync='rsync -r -hh --info=progress2,stats'
+    alias copy='rsync'
+    alias move='rsync --remove-source-files'
+fi
 
 # sudo
-alias sudo='sudo '              # allow aliases in sudo commands
-alias sudos='sudo sh -c'        # execute multiple commands
+if command -v sudo >/dev/null; then
+    alias sudo='sudo '          # allow aliases in sudo commands
+    alias sudos='sudo sh -c'    # execute multiple commands
+fi
 
 # tee
 alias t='tee'
 alias tea='tee -a'
 
 # tree
-alias tree='tree -Cl'
-alias trea='tree -a -I .git'
+if command -v tree >/dev/null; then
+    alias tree='tree -Cl'
+    alias trea='tree -a -I .git'
+fi
 
 # whatis
-alias wi='whatis'
+command -v whatis >/dev/null &&
+    alias wi='whatis'
 
 # xargs
 alias xargs='xargs '            # allow aliases in xargs commands

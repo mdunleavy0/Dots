@@ -61,6 +61,7 @@ zstyle ':completion:*' menu select
 # environment
 # Source shell-agnostic environment variables, aliases, and functions.
 : "${XDG_CONFIG_HOME:=$HOME/.config}"
+emulate sh -c 'source $XDG_CONFIG_HOME/env/system.sh'
 emulate sh -c 'source $XDG_CONFIG_HOME/env/vars.sh'
 emulate sh -c 'source $XDG_CONFIG_HOME/env/aliases.sh'
 emulate sh -c 'source $XDG_CONFIG_HOME/env/functions.sh'

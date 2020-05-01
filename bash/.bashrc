@@ -18,6 +18,7 @@ fi
 
 # source shell-agnostic environment variables, aliases, and functions
 : "${XDG_CONFIG_HOME:=$HOME/.config}"
-source $XDG_CONFIG_HOME/env/vars.sh
-source $XDG_CONFIG_HOME/env/aliases.sh
-source $XDG_CONFIG_HOME/env/functions.sh
+source "$XDG_CONFIG_HOME/env/system.sh"
+source "$XDG_CONFIG_HOME/env/vars.sh"
+source "$XDG_CONFIG_HOME/env/aliases.sh"
+source "$XDG_CONFIG_HOME/env/functions.sh"
