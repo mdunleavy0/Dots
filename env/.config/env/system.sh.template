@@ -5,7 +5,7 @@
 #   gnu-linux, gnu-linux-wsl, gnu-hurd,
 #   freebsd, netbsd, openbsd, dfbsd,
 #   macos
-#OS=gnu
+#OS=gnu-linux
 
 # os distribution
 # values include:
