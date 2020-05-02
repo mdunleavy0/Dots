@@ -3,6 +3,7 @@
 fix() {
     "$@" 2>/dev/null
 }
+alias fix='fix '                # allow aliases in fix commands
 
 
 # ls
