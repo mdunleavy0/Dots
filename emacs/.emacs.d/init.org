@@ -864,7 +864,8 @@ https://github.com/joaotavora/yasnippet
 A fill-in-the-blanks template system for completions. Integrates with [[*Language Server Protocol (LSP)][LSP mode]].
 
 #+BEGIN_SRC emacs-lisp
-  (use-package yasnippet)
+  (use-package yasnippet
+    :hook (lsp-mode . yas-minor-mode))
 #+END_SRC
 
 
