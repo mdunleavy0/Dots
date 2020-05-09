@@ -176,6 +176,32 @@ modes. Preset styles are available with ~c-set-style~.
   (setq c-default-style "stroustrup")
 #+END_SRC
 
+To make a C header file more easily usable with C++, one should conditionally
+wrap the file with an ~extern "C"~ block, like so:
+
+#+BEGIN_SRC c :tangle no
+  #ifdef __cplusplus
+  extern "C" {
+  #endif
+
+  /* C declarations go here... */
+
+  #ifdef __cplusplus
+  }
+  #endif
+#+END_SRC
+
+Emacs' C/C++ indentation has no special case for this scenario. It sees an open
+curly brace and decides that everything inside it should be indented. The
+following command stops that by disabling indentation for ~extern "<LANGUAGE>"~
+blocks in C files; which is fine because that isn't even part of the C language.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'c-mode-hook
+            (lambda ()
+              (c-set-offset 'inextern-lang 0)))
+#+END_SRC
+
 
 ** Fill Column
 
