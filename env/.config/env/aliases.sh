@@ -1,3 +1,10 @@
+# ccache
+# Ccache for Portage ebuilds.
+[ "$PACKAGING" = portage ] &&
+    [ -d /var/cache/ccache/ ] &&
+    command -v ccache >/dev/null &&
+    alias ecache='env CCACHE_DIR=/var/cache/ccache ccache'
+
 # dd
 case $OS in
     gnu*) alias dd='dd status=progress'
