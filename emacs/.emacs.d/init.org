@@ -130,6 +130,25 @@ the contextual menu-bar entries are useful in unfamiliar modes.
 
 * Editing
 
+** Delete Selection
+
+Let typed text delete and replace any selected text. This is the default
+behaviour in any other software with text editing.
+
+#+BEGIN_SRC emacs-lisp
+  (delete-selection-mode 1)
+#+END_SRC
+
+
+** Fill Column
+
+Prefrerred line width for commands like ~fill-paragraph~.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 80)
+#+END_SRC
+
+
 ** Indentation & Whitespace
 
 *** Tabs vs Spaces
@@ -200,15 +219,6 @@ blocks in C files; which is fine because that isn't even part of the C language.
   (add-hook 'c-mode-hook
             (lambda ()
               (c-set-offset 'inextern-lang 0)))
-#+END_SRC
-
-
-** Fill Column
-
-Prefrerred line width for commands like ~fill-paragraph~.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default fill-column 80)
 #+END_SRC
 
 
