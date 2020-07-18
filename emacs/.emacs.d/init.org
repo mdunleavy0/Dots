@@ -83,6 +83,16 @@ Add the column number next to row number on the mode line.
 #+END_SRC
 
 
+** Mouse Focus
+
+Inform Emacs whether the window manager will try to focus windows on mouse
+hover. Emacs' internal window management can then compensate accordingly.
+
+#+BEGIN_SRC emacs-lisp
+  (setq focus-follows-mouse t)
+#+END_SRC
+
+
 ** Scroll-bar
 
 Disable the graphical scrollbar. I find it unnecessary, given the keyboard
@@ -151,40 +161,6 @@ Prefrerred line width for commands like ~fill-paragraph~.
 
 ** Indentation & Whitespace
 
-*** Tabs vs Spaces
-
-Prefer spaces for =prog-mode=, a parent mode of all programming modes. Default to
-tabs otherwise.
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook
-            (lambda () (setq indent-tabs-mode nil)))
-#+END_SRC
-
-As an exception, use tabs in =makefile-mode=. (Makefiles require tabs.)
-
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'makefile-mode-hook
-            (lambda () (setq indent-tabs-mode t)))
-#+END_SRC
-
-
-*** Indentation Width
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default tab-width 4)
-#+END_SRC
-
-
-*** Trailing Whitespace
-
-Highlight trailing whitespace. (Even invisible things can bother me.)
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default show-trailing-whitespace t)
-#+END_SRC
-
-
 *** CC Mode
 
 =cc-mode= is a parent mode for C-like languages including C, Java & AWK. It
@@ -193,6 +169,13 @@ modes. Preset styles are available with ~c-set-style~.
 
 #+BEGIN_SRC emacs-lisp
   (setq c-default-style "stroustrup")
+#+END_SRC
+
+When indenting backslashed line continuations, allow the backslash to be
+indented up to the fill line.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default c-backslash-max-column fill-column)
 #+END_SRC
 
 To make a C header file more easily usable with C++, one should conditionally
@@ -219,6 +202,40 @@ blocks in C files; which is fine because that isn't even part of the C language.
   (add-hook 'c-mode-hook
             (lambda ()
               (c-set-offset 'inextern-lang 0)))
+#+END_SRC
+
+
+*** Indentation Width
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default tab-width 4)
+#+END_SRC
+
+
+*** Tabs vs Spaces
+
+Prefer spaces for =prog-mode=, a parent mode of all programming modes. Default to
+tabs otherwise.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook
+            (lambda () (setq indent-tabs-mode nil)))
+#+END_SRC
+
+As an exception, use tabs in =makefile-mode=. (Makefiles require tabs.)
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'makefile-mode-hook
+            (lambda () (setq indent-tabs-mode t)))
+#+END_SRC
+
+
+*** Trailing Whitespace
+
+Highlight trailing whitespace. (Even invisible things can bother me.)
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default show-trailing-whitespace t)
 #+END_SRC
 
 
@@ -440,15 +457,6 @@ templates. Configuration changes will be required.
 
 
 * Miscellaneous
-
-** Mouse Autoselect Window
-
-Automatically select any window the mouse passes over.
-
-#+BEGIN_SRC emacs-lisp
-  (setq mouse-autoselect-window t)
-#+END_SRC
-
 
 ** Shell Script
 
@@ -731,6 +739,8 @@ implementations. Provides a generic way to turn editors into IDEs.
   (use-package lsp-mode
     :hook (scala-mode . lsp)
     :init
+    ;; don't mess with my indentation/formatting
+    (setq lsp-enable-on-type-formatting nil)
     ;; disable library/header-file auto-import
     (setq lsp-clients-clangd-args '("-header-insertion=never"))
     :commands lsp)
