@@ -269,6 +269,18 @@ spell-checker to be installed on the operating system.
 #+END_SRC
 
 
+** Verilog
+
+~verilog-mode~ has some rather opinionated default behaviours. They need to be
+rectified.
+
+#+BEGIN_SRC emacs-lisp
+  (setq verilog-auto-endcomments nil
+        verilog-auto-lineup nil
+        verilog-auto-newline nil)
+#+END_SRC
+
+
 * Style
 
 ** Font
