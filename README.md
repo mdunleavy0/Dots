@@ -1,6 +1,6 @@
 # Dots
-Personal Linux PC dotfiles
-Michael Dunleavy
+Personal Linux PC dotfiles  
+*Michael Dunleavy*
 
 ## Stow
 
@@ -11,7 +11,7 @@ expected location in the user's home directory.
 
 To setup symlinks for a directory in this repo, such as *emacs/*, run *stow
 --no-folding -t ~ emacs*. The *-t ~* option can be omitted if this repo is
-stored directly under the home directory (e.g. ~/Dots). Add the *-v* flag for
+stored directly under the home directory (e.g. ~/Dots/). Add the *-v* flag for
 more verbose output. Add the *-n* flag to perform a dry-run.
 
 
