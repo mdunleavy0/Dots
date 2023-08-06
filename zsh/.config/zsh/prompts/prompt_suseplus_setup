@@ -30,7 +30,8 @@ prompt_suseplus_setup () {
   local dir="%F{cyan}:$dir_inner%f"
   local vcs="\$vcs_info_msg_0_"
   local err="%(?.. %F{red}[%?]%f)"
-  local sep_inner="%B>%b"
+  #local sep_inner="%B>%b"
+  local sep_inner="%B%(!.>>>.>)%b"
   local sep1=" %(?.%F{blue}.%F{red})$sep_inner%f"
   local sep2=" %F{blue}$sep_inner%f"
 
