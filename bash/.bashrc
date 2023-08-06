@@ -44,14 +44,14 @@ HISTFILESIZE=2500
 case "$TERM" in
 	# if colour terminal, get colourful
 	linux|xterm*|rxvt*)
-		PS1="\e[1m"
+		PS1='\e[1m'
 		# if root, print username in red
 		if [ $EUID -eq 0 ]; then
-			PS1="${PS1}\e[31m\u"
+			PS1+='\e[31m\u'
 		else
-			PS1="${PS1}\e[35m\u"
+			PS1+='\e[35m\u'
 		fi
-		PS1="${PS1}\e[34m@\h\e[36m:\w \$ \e[0m"
+		PS1+='\e[34m@\h\e[36m:\w \$ \e[0m'
 		;;
 	# else, monochrome
 	*)
