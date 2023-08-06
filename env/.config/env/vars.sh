@@ -34,9 +34,14 @@ export DICTIONARY='en_GB'
 if command -v less >/dev/null; then
     export PAGER='less'
     export LESS="-iR"
-    [ -f /usr/bin/src-hilite-lesspipe.sh ] && \
-        export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
     export LESSHISTFILE='/dev/null'
+    # syntax highlighting with GNU Source Highlight
+    # I should try 'bat' sometime as an alternative.
+    if [ -f /usr/share/source-highlight/src-hilite-lesspipe.sh ]; then
+        export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+    elif [ -f /usr/bin/src-hilite-lesspipe.sh ]; then
+        export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
+    fi
 else
     export PAGER='more'         # posix alternative
 fi
