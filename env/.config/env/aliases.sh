@@ -5,6 +5,9 @@
     command -v ccache >/dev/null &&
     alias ecache='env CCACHE_DIR=/var/cache/ccache ccache'
 
+#cp
+alias cr="cp -R"
+
 # dd
 case $OS in
     gnu*) alias dd='dd status=progress'
