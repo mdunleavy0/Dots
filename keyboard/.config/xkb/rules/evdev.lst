@@ -1,0 +1,4 @@
+! option
+  dead_greek              Greek letters
+  dead_greek:g            Greek dead key on 3rd level of "G"
+  dead_greek:g_copyright  Move copyright sign to 4th level of "G"

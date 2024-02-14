@@ -1,0 +1,11 @@
+// Dead key for Greek characters. For the scholarly typist.
+
+// G is for Greece.
+partial xkb_symbols "g" {
+    key <AC05> {[ NoSymbol, NoSymbol, dead_greek, NoSymbol ]};
+};
+
+// Some layouts put the copyright on Mod3. This shifts it to Mod4.
+partial xkb_symbols "g_copyright" {
+    key <AC05> {[ NoSymbol, NoSymbol, dead_greek, copyright ]};
+};

@@ -1,0 +1,5 @@
+! option = symbols
+  dead_greek:g = +dead_greek(g)
+  dead_greek:g_copyright = +dead_greek(g_copyright)
+
+! include %S/evdev

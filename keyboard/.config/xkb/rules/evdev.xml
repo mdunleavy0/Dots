@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xkbConfigRegistry SYSTEM "xkb.dtd">
+
+<xkbConfigRegistry version="1.1">
+  <optionList>
+    <group allowMultipleSelection="true">
+      <configIem>
+        <name>dead_greek</name>
+        <description>Greek letters</description>
+      </configIem>
+      <option>
+        <configIem>
+          <name>dead_greek:g</name>
+          <description>Greek dead key on 3rd level of "G"</description>
+        </configIem>
+      </option>
+      <option>
+        <configIem>
+          <name>dead_greek:g_copyright</name>
+          <description>Move copyright sign to 4th level of "G"</description>
+        </configIem>
+      </option>
+    </group>
+  </optionList>
+</xkbConfigRegistry>
