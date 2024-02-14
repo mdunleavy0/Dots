@@ -14,7 +14,7 @@
 #   arch,
 #   gentoo,
 #   trueos, ghostbsd
-#DISTRO=gentoo
+#DISTRO=debian
 
 # init system
 # values include:
@@ -22,11 +22,11 @@
 #   systemd, openrc, s6, runit,
 #   bsd-rc,
 #   launchd
-#INIT=openrc
+#INIT=systemd
 
 # primary package manager
 # values include:
 #   apt, yum, pacman, portage,
 #   freebsd-ports, openbsd-ports, pkgsrc,
 #   homebrew
-#PACKAGING=portage
+#PACKAGING=apt
