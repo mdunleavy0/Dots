@@ -115,7 +115,11 @@ esac
 # syntax highlighting
 # https://github.com/zsh-users/zsh-syntax-highlighting
 # Should be configured last.
-highlighting="$HOME/opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+if [ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    highlighting="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+elif [ -f "$HOME/opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    highlighting="$HOME/opt/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
 if [ -f $highlighting ]; then
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
     source $highlighting
