@@ -5,3 +5,5 @@
 	one = log --oneline
 [init]
 	defaultBranch = main
+[include]
+	path = config-host-specific
