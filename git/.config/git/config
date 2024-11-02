@@ -3,3 +3,5 @@
 	name = Michael Dunleavy
 [alias]
 	one = log --oneline
+[init]
+	defaultBranch = main
