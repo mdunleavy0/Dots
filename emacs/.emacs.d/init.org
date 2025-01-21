@@ -41,6 +41,122 @@ Customize's state out of ~init.el~ to a separate file.
 #+END_SRC
 
 
+* Auto-saves & Backups
+
+** Auto-saves
+
+#+BEGIN_QUOTE
+	By default, Emacs automatically saves your changes to a file
+	intermittently. If anything should happen, you can recover a file
+	with ~M-x recover-file~.
+
+	...
+
+	By default, auto-save files are stored in the current directory
+	with a file name on the form ~#file#~. If you don’t want to
+	clutter up your file tree with Emacs' backup files, you can save
+	them to a dedicated directory
+
+	--- https://emacswiki.org/emacs/AutoSave
+#+END_QUOTE
+
+The following code sets the auto-save location to a single,
+out-of-the-way directory.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar mike-auto-save-location
+	(expand-file-name "~/.emacs.d/auto-saves/")
+	"Base directory for auto save files.")
+  (setq auto-save-file-name-transforms
+		`((".*" ,mike-auto-save-location t)))
+#+END_SRC
+
+
+** Backups
+
+Taken from
+http://pragmaticemacs.com/emacs/auto-save-and-backup-every-save . See
+link for walkthrough.
+
+Emacs can automatically back-up old versions of files when changes are
+saved.
+
+#+BEGIN_QUOTE
+	By default the backup file is made in the same directory as the
+	original with a name like ~file~~. The way the backup works is
+	that Emacs makes a copy of a file the first time you save it in an
+	Emacs session. It only makes that one backup though, so this is
+	not very useful if you keep your session running for a long time
+	and want to recover an earlier version of a file.
+
+	--- http://pragmaticemacs.com/emacs/auto-save-and-backup-every-save
+#+END_QUOTE
+
+The following code:
+- Moves autosaves to a single, out-of-the-way location
+- Sets up backups after every save
+- Allows multiple backups of the same file to co-exist
+- Numbers backups
+- Copies the first backup of each session to a separate directory
+- Prevents backups of files over a certain size
+
+These backups will pile up over time unless regularly
+purged. Currently I use a cron-job to delete backups over 1 week old.
+
+#+BEGIN_SRC emacs-lisp
+  ;; custom backup location
+  ;; will contain sub-directories for per-session and per-save backups
+  (defvar mike-backup-location (expand-file-name "~/.emacs.d/backups/")
+	"Base directory for backup files.")
+
+  ;; set default/per-save backup location
+  (setq backup-directory-alist
+	`((".*" . ,(expand-file-name "per-save/" mike-backup-location))))
+
+  (setq
+   backup-by-copying t        ; don't clobber symlinks
+   kept-new-versions 1000     ; keep n latest versions
+   kept-old-versions 0        ; don't bother with old versions
+   delete-old-versions t      ; don't ask about deleting old versions
+   version-control t          ; number backups
+   vc-make-backup-files t)    ; backup version controlled files
+
+  (defvar mike-backup-file-size-limit (* 5 1024 1024)
+	"Maximum size of a file (in bytes) that should be copied at each savepoint.")
+
+  (defun mike-backup-every-save ()
+	"Backup files every time they are saved, as well as at the start of each session"
+
+	;; when at start of session
+	(when (not buffer-backed-up)
+	  ;; settings for per-session backup
+	  (let ((backup-directory-alist
+			 `((".*" . ,(expand-file-name "per-session/" mike-backup-location))))
+			(kept-new-versions 1000))
+
+		;; make a per-session backup
+		(if (<= (buffer-size) mike-backup-file-size-limit)
+			(progn
+			  (message "Made per-session backup of %s" (buffer-name))
+			  (backup-buffer))
+		  (warn
+		   "Buffer %s too large to backup - increase value of mike-backup-file-size-limit"
+		   (buffer-name)))))
+
+	;; always
+	(let ((buffer-backed-up nil))
+	  (if (<= (buffer-size) mike-backup-file-size-limit)
+		  (progn
+			(message "Made per-save backup of %s" (buffer-name))
+			(backup-buffer))
+		(warn
+		 "Buffer %s too large to backup - increase value of mike-backup-file-size-limit"
+		 (buffer-name)))))
+
+  (add-hook 'before-save-hook 'mike-backup-every-save)
+#+END_SRC
+
+
 * init.org
 
 ** Org-mode Properties
