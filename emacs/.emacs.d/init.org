@@ -37,7 +37,168 @@ Customize's state out of ~init.el~ to a separate file.
 
 #+BEGIN_SRC emacs-lisp
   (setq custom-file "~/.emacs.d/custom.el")
-  (load custom-file)
+  (if (file-exists-p custom-file)
+      (load custom-file t)
+    (make-empty-file custom-file))
+#+END_SRC
+
+
+* User Interface
+
+** Startup Screen
+
+Do not open the ~About GNU Emacs~ splash screen on startup
+
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+#+END_SRC
+
+
+** Tool-bar & Menu-bar
+
+The tool-bar provides pictorial icons for editing tasks like save and
+undo. The menu-bar provides textual drop-down menus for a wider range
+of tasks. Active modes may add menu-bar menus. Many users find both
+bars obstuctive and babyish. I do however like the contextual menu-bar
+entries. They are useful in unfamiliar modes.
+
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode -1)
+  ;;(menu-bar-mode -1)
+#+END_SRC
+
+
+** Scroll-bar
+
+Disable the graphical scrollbar. I find it unnecessary, given the
+keyboard navigation options and the row information on the mode line.
+
+#+BEGIN_SRC emacs-lisp
+  (scroll-bar-mode -1)
+#+END_SRC
+
+
+** Column Numbers
+
+Add column numbers next to row numbers on the mode line.
+
+#+BEGIN_SRC emacs-lisp
+  (column-number-mode)
+#+END_SRC
+
+
+** Frame Size
+
+By default, Emacs automatically shrinks the frame so to align with row
+and column boundaries (or at least it does on KDE). This looks bad
+when you maximise a frame/window and there's a sliver of desktop
+visible. The following code disables this behaviour.
+
+#+BEGIN_SRC emacs-lisp
+  (setq frame-resize-pixelwise t)
+#+END_SRC
+
+Additionally, for KDE systems, perform the following steps from
+https://www.emacswiki.org/emacs/KdeMaximized:
+
+#+BEGIN_QUOTE
+    1. Right click on the Emacs image in the title bar.
+    2. More Actions > Special Window Settings…
+    3. Click on the Size & Position tab
+    4. Select the checkbox for ‘Obey geometry restrictions’
+    5. Choose ‘Force’ in the dropdown menu
+    6. Select ‘No’ from the radio buttons to its right
+    7. Click the ‘OK’ button at the bottom to save your settings.
+#+END_QUOTE
+
+
+* Editing
+
+** Indentation & Whitespace
+
+*** Tabs vs Spaces
+
+Prefer spaces for ~prog-mode~, a superclass of all programming
+modes. Default to tabs otherwise.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook (lambda ()
+			      (setq indent-tabs-mode nil)))
+#+END_SRC
+
+
+*** Indentation Width
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default tab-width 4)
+#+END_SRC
+
+
+*** Indentation Behaviour
+
+#+BEGIN_SRC emacs-lisp
+  ;; TAB only indents when point is at the start of a line
+  (setq-default tab-always-indent nil)
+
+  ;; newlines don't indent the previous line
+  ;;(setq-default electric-indent-inhibit t)
+#+END_SRC
+
+
+*** Whitespace Deletion
+
+#+BEGIN_SRC emacs-lisp
+  ;; backspace deletes all whitespace at once
+  ;; consider writing/stealing a backspace-to-tab-stop function
+  (setq backward-delete-char-untabify-method 'hungry)
+#+END_SRC
+
+
+*** Trailing Whitespace
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default show-trailing-whitespace t)
+#+END_SRC
+
+
+*** CC Mode
+
+~cc-mode~ is a parent mode for C-like languages including C, Java &
+AWK. It provides settings for indenting and formatting source code in
+its child modes. Preset styles are available with ~c-set-style~.
+
+#+BEGIN_SRC emacs-lisp
+  (setq c-default-style "stroustrup")
+#+END_SRC
+
+
+** Pretty Symbols
+
+Minor mode for drawing multi-character tokens as Unicode glyphs
+(e.g. lambda -> λ).
+
+#+BEGIN_SRC emacs-lisp
+  (global-prettify-symbols-mode 1)
+#+END_SRC
+
+
+** Parentheses
+
+Highlight pairs of matching parentheses when the point is on one of
+them.
+
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode 1)
+#+END_SRC
+
+
+** Spelling
+
+Enable spell-checking by default for text modes.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'text-mode-hook
+	    (lambda () (flyspell-mode 1)))
 #+END_SRC
 
 
@@ -154,6 +315,21 @@ purged. Currently I use a cron-job to delete backups over 1 week old.
 		 (buffer-name)))))
 
   (add-hook 'before-save-hook 'mike-backup-every-save)
+#+END_SRC
+
+
+* Miscellaneous
+
+** Symbolic Links
+
+Disable warning about following symbolic links to version controlled
+directories.
+
+#+BEGIN_SRC emacs-lisp
+  ;; honestly, I don't know the full implications of this one
+  ;; I just want the yes/no prompt gone
+  ;; I think it screws up my init.el generation if set to true
+  (setq vc-follow-symlinks nil)
 #+END_SRC
 
 
