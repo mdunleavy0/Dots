@@ -1,0 +1,94 @@
+#+TITLE:	Emacs Configuration
+#+AUTHOR:	Michael Dunleavy
+
+
+* Preface
+
+This is an Org file containing my Emacs configuration. Whenever this
+file is saved in Emacs it will automatically collect all of this
+document's code snippets into a new ~init.el~. It does so this calling
+function =org-babel-tangle=.
+
+The code which configures this document and calls =org-babel-tangle=
+is located at the end of this document.
+
+
+* Header
+
+Warn readers of ~init.el~ not to modify ~init.el~ directly.
+
+#+BEGIN_SRC emacs-lisp :comments no
+  ;;
+  ;; DO NOT MODIFY THIS FILE DIRECTLY.
+  ;; This file was automatically generated from init.org using babel.
+  ;; Configuration should be done through init.org.
+  ;; init.org will automatically generate new versions of this file,
+  ;; overwriting any changes made outside of init.org.
+  ;;
+
+#+END_SRC
+
+
+* Customize
+
+~Customize~ is Emacs' system for GUI-based configuration. I do not use
+it directly but some modes automatically edit it. This code moves
+Customize's state out of ~init.el~ to a separate file.
+
+#+BEGIN_SRC emacs-lisp
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load custom-file)
+#+END_SRC
+
+
+* init.org
+
+** Org-mode Properties
+
+*** Tangling
+
+Mark all source blocks for compilation.
+
+#+BEGIN_SRC org :tangle no
+  #+PROPERTY: header-args  :tangle yes
+#+END_SRC
+#+PROPERTY: header-args  :tangle yes
+
+
+*** Comments
+
+Put comments in output file to denote sections.
+
+#+BEGIN_SRC org :tangle no
+  #+PROPERTY: header-args+ :comments yes
+#+END_SRC
+#+PROPERTY: header-args+ :comments yes
+
+
+*** Results
+
+Prevent evaluation results from being appended to ~init.org~.
+
+#+BEGIN_SRC org :tangle no
+  #+PROPERTY: header-args+ :results silent
+#+END_SRC
+#+PROPERTY: header-args+ :results silent
+
+
+** Emacs File Local Variables
+
+Compile ~init.el~ whenever ~init.org~ is saved in Emacs.
+
+_The start of the local variables list should be no more than 3000
+characters from the end of the file..._ I had a very unpleasant time
+figuring that out.
+
+#+BEGIN_SRC org :tangle no
+  # Local Variables:
+  # eval: (add-hook 'after-save-hook 'org-babel-tangle nil t)
+  # End:
+#+END_SRC
+
+# Local Variables:
+# eval: (add-hook 'after-save-hook 'org-babel-tangle nil t)
+# End:
