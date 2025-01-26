@@ -4,18 +4,17 @@
 
 * Preface
 
-This is an Org file containing my Emacs configuration. Whenever this
-file is saved in Emacs it will automatically collect all of this
-document's code snippets into a new ~init.el~. It does so this calling
-function =org-babel-tangle=.
+This is an Org file containing my Emacs configuration. Whenever this file is
+saved in Emacs it will automatically collect all of this document's code
+snippets into a new =init.el=. It does so this calling function ~org-babel-tangle~.
 
-The code which configures this document and calls =org-babel-tangle=
-is located at the end of this document.
+The code which configures this document and calls ~org-babel-tangle~ is located at
+the end of this document.
 
 
 * Header
 
-Warn readers of ~init.el~ not to modify ~init.el~ directly.
+Warn readers of =init.el= not to modify =init.el= directly.
 
 #+BEGIN_SRC emacs-lisp :comments no
   ;;
@@ -31,15 +30,15 @@ Warn readers of ~init.el~ not to modify ~init.el~ directly.
 
 * Customize
 
-~Customize~ is Emacs' system for GUI-based configuration. I do not use
-it directly but some modes automatically edit it. This code moves
-Customize's state out of ~init.el~ to a separate file.
+~Customize~ is Emacs' system for GUI-based configuration. I do not use it directly
+but some modes automatically edit it. This code moves Customize's state out of
+=init.el= to a separate file.
 
 #+BEGIN_SRC emacs-lisp
-  (setq custom-file "~/.emacs.d/custom.el")
-  (if (file-exists-p custom-file)
-      (load custom-file t)
-    (make-empty-file custom-file))
+    (setq custom-file "~/.emacs.d/custom.el")
+    (if (file-exists-p custom-file)
+        (load custom-file t)
+      (write-region "" nil custom-file))
 #+END_SRC
 
 
@@ -47,31 +46,40 @@ Customize's state out of ~init.el~ to a separate file.
 
 ** Startup Screen
 
-Do not open the ~About GNU Emacs~ splash screen on startup
+Do not open the =About GNU Emacs= splash screen on startup.
 
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen t)
 #+END_SRC
 
 
+** Terminal Mouse
+
+Enable mouse when running Emacs from xterm compatible terminal emulators.
+
+#+BEGIN_SRC emacs-lisp
+  (xterm-mouse-mode 1)
+#+END_SRC
+
+
 ** Tool-bar & Menu-bar
 
-The tool-bar provides pictorial icons for editing tasks like save and
-undo. The menu-bar provides textual drop-down menus for a wider range
-of tasks. Active modes may add menu-bar menus. Many users find both
-bars obstuctive and babyish. I do however like the contextual menu-bar
-entries. They are useful in unfamiliar modes.
+The tool-bar provides pictorial icons for editing tasks like save and undo. The
+menu-bar provides textual drop-down menus for a wider range of tasks. Active
+modes may add menu-bar menus. Both bars can be considered obtrusive. However,
+the contextual menu-bar entries are useful in unfamiliar modes.
 
 #+BEGIN_SRC emacs-lisp
   (tool-bar-mode -1)
-  ;;(menu-bar-mode -1)
+  (if (not window-system)
+      (menu-bar-mode -1))
 #+END_SRC
 
 
 ** Scroll-bar
 
-Disable the graphical scrollbar. I find it unnecessary, given the
-keyboard navigation options and the row information on the mode line.
+Disable the graphical scrollbar. I find it unnecessary, given the keyboard
+navigation options and the row information on the mode line.
 
 #+BEGIN_SRC emacs-lisp
   (scroll-bar-mode -1)
@@ -89,10 +97,10 @@ Add column numbers next to row numbers on the mode line.
 
 ** Frame Size
 
-By default, Emacs automatically shrinks the frame so to align with row
-and column boundaries (or at least it does on KDE). This looks bad
-when you maximise a frame/window and there's a sliver of desktop
-visible. The following code disables this behaviour.
+By default, Emacs automatically shrinks the frame so to align with row and
+column boundaries (or at least it does on KDE). This looks bad when you maximise
+a frame/window and there's a sliver of desktop visible. The following code
+disables this behaviour.
 
 #+BEGIN_SRC emacs-lisp
   (setq frame-resize-pixelwise t)
@@ -112,18 +120,53 @@ https://www.emacswiki.org/emacs/KdeMaximized:
 #+END_QUOTE
 
 
+** Yes or No Prompts
+
+Replace yes/no prompts with y/n prompts.
+
+#+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+
 * Editing
+
+** Delete Selection
+
+Let typed text delete and replace any selected text. This is the default
+behaviour in any other software with text editing.
+
+#+BEGIN_SRC emacs-lisp
+  (delete-selection-mode 1)
+#+END_SRC
+
+
+** Fill Column
+
+Preferred line width for commands like ~fill-paragraph~.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 80)
+#+END_SRC
+
 
 ** Indentation & Whitespace
 
 *** Tabs vs Spaces
 
-Prefer spaces for ~prog-mode~, a superclass of all programming
-modes. Default to tabs otherwise.
+Prefer spaces for ~prog-mode~, a superclass of all programming modes. Default to
+tabs otherwise.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'prog-mode-hook (lambda ()
-			      (setq indent-tabs-mode nil)))
+  (add-hook 'prog-mode-hook
+			(lambda () (setq indent-tabs-mode nil)))
+#+END_SRC
+
+As an exception, use tabs in ~makefile-mode~. (Makefiles require tabs.)
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'makefile-mode-hook
+            (lambda () (setq indent-tabs-mode t)))
 #+END_SRC
 
 
@@ -156,6 +199,9 @@ modes. Default to tabs otherwise.
 
 *** Trailing Whitespace
 
+Highlight trailing whitespace. (Even invisible things can bother me.)  Trailing
+whitespace can be purged with ~delete-trailing-whitespace~.
+
 #+BEGIN_SRC emacs-lisp
   (setq-default show-trailing-whitespace t)
 #+END_SRC
@@ -163,9 +209,9 @@ modes. Default to tabs otherwise.
 
 *** CC Mode
 
-~cc-mode~ is a parent mode for C-like languages including C, Java &
-AWK. It provides settings for indenting and formatting source code in
-its child modes. Preset styles are available with ~c-set-style~.
+~cc-mode~ is a parent mode for C-like languages including C, Java & AWK. It
+provides settings for indenting and formatting source code in its child
+modes. Preset styles are available with ~c-set-style~.
 
 #+BEGIN_SRC emacs-lisp
   (setq c-default-style "stroustrup")
@@ -184,8 +230,7 @@ Minor mode for drawing multi-character tokens as Unicode glyphs
 
 ** Parentheses
 
-Highlight pairs of matching parentheses when the point is on one of
-them.
+Highlight pairs of matching parentheses when the point is on one of them.
 
 #+BEGIN_SRC emacs-lisp
   (show-paren-mode 1)
@@ -194,7 +239,8 @@ them.
 
 ** Spelling
 
-Enable spell-checking by default for text modes.
+Enable spell-checking by default for text modes. Requires a compatible
+spell-checker to be installed on the operating system.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'text-mode-hook
@@ -208,21 +254,20 @@ Enable spell-checking by default for text modes.
 
 #+BEGIN_QUOTE
 	By default, Emacs automatically saves your changes to a file
-	intermittently. If anything should happen, you can recover a file
-	with ~M-x recover-file~.
+	intermittently. If anything should happen, you can recover a file with
+    ~M-x recover-file~.
 
 	...
 
-	By default, auto-save files are stored in the current directory
-	with a file name on the form ~#file#~. If you don’t want to
-	clutter up your file tree with Emacs' backup files, you can save
-	them to a dedicated directory
+	By default, auto-save files are stored in the current directory with a file
+	name on the form ~#file#~. If you don’t want to clutter up your file tree with
+	Emacs' backup files, you can save them to a dedicated directory
 
 	--- https://emacswiki.org/emacs/AutoSave
 #+END_QUOTE
 
-The following code sets the auto-save location to a single,
-out-of-the-way directory.
+The following code sets the auto-save location to a single, out-of-the-way
+directory.
 
 #+BEGIN_SRC emacs-lisp
   (defvar mike-auto-save-location
@@ -235,20 +280,17 @@ out-of-the-way directory.
 
 ** Backups
 
-Taken from
-http://pragmaticemacs.com/emacs/auto-save-and-backup-every-save . See
+Taken from http://pragmaticemacs.com/emacs/auto-save-and-backup-every-save . See
 link for walkthrough.
 
-Emacs can automatically back-up old versions of files when changes are
-saved.
+Emacs can automatically back-up old versions of files when changes are saved.
 
 #+BEGIN_QUOTE
-	By default the backup file is made in the same directory as the
-	original with a name like ~file~~. The way the backup works is
-	that Emacs makes a copy of a file the first time you save it in an
-	Emacs session. It only makes that one backup though, so this is
-	not very useful if you keep your session running for a long time
-	and want to recover an earlier version of a file.
+	By default the backup file is made in the same directory as the original
+	with a name like =file~=. The way the backup works is that Emacs makes a
+	copy of a file the first time you save it in an Emacs session. It only makes
+	that one backup though, so this is not very useful if you keep your session
+	running for a long time and want to recover an earlier version of a file.
 
 	--- http://pragmaticemacs.com/emacs/auto-save-and-backup-every-save
 #+END_QUOTE
@@ -261,8 +303,8 @@ The following code:
 - Copies the first backup of each session to a separate directory
 - Prevents backups of files over a certain size
 
-These backups will pile up over time unless regularly
-purged. Currently I use a cron-job to delete backups over 1 week old.
+These backups will pile up over time unless regularly purged. Currently I use a
+cron-job to delete backups over 1 week old.
 
 #+BEGIN_SRC emacs-lisp
   ;; custom backup location
@@ -318,18 +360,139 @@ purged. Currently I use a cron-job to delete backups over 1 week old.
 #+END_SRC
 
 
+* Org
+
+** Emphasis
+
+Hide emphasis marker characters (such as '/'s for italics).
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-hide-emphasis-markers t)
+#+END_SRC
+
+
+** Indentation
+
+Indent text according to outline structure. (Calls ~org-indent-mode~.)
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-startup-indented t)
+#+END_SRC
+
+
 * Miscellaneous
+
+** Shell Script
+
+*** Default Shell
+
+Set the default shell for =sh-mode= to the plain Bourne shell. Emacs' stock
+behaviour is to set it to ~$SHELL~ or an equivalent. I prefer to use =zsh= as my
+interactive shell but script in either =sh= or =bash= for portability.
+
+#+BEGIN_SRC emacs-lisp
+  (setq sh-shell-file "/bin/sh")
+#+END_SRC
+
 
 ** Symbolic Links
 
 Disable warning about following symbolic links to version controlled
-directories.
+directories. (Of particular interest to me, don't follow this file to my
+dotfiles directory.)
 
 #+BEGIN_SRC emacs-lisp
   ;; honestly, I don't know the full implications of this one
   ;; I just want the yes/no prompt gone
-  ;; I think it screws up my init.el generation if set to true
   (setq vc-follow-symlinks nil)
+#+END_SRC
+
+
+* External Packages
+
+** Prerequisites
+
+Package's are a built-in feature since Emacs 24 (although they were available
+earlier).
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+#+END_SRC
+
+
+** MELPA
+
+https://melpa.org/
+
+Add MELPA to the package archives list. Require https. Taken from
+https://melpa.org/#/getting-started.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+  ;; Comment/uncomment this line to enable MELPA Stable if desired.
+  ;; See `package-archive-priorities` and `package-pinned-packages`.
+  ;; Most users will not need or want to do this.
+  ;;(add-to-list 'package-archives
+  ;;             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+#+END_SRC
+
+I have moved back to regular Melpa from Melpa Stable. Melpa Stable is a
+lie. I've known this for some time. The sole criterion for a commit ending up in
+Melpa Stable is whether it has been tagged with release number. Stability and
+Zero-Day are equivalent as far as Melpa is concerned. Here's Gentoo's protocols
+for package stabilisation for comparison:
+[[https://wiki.gentoo.org/wiki/Stable_request]]. Regular Melpa is just as
+unsupervised but at least it has the latest toys.
+
+
+** Early Package Initialisation
+
+By default packages are initialised (ie. loaded and activated) after =init.el= is
+run. Manually initialising them early makes them available for use in =init.el=.
+
+#+BEGIN_SRC emacs-lisp
+  (package-initialize)
+#+END_SRC
+
+
+** Use-package
+
+https://github.com/jwiegley/use-package
+
+=use-package= is a package configuration tool.
+
+The following code checks that use-package is installed and downloads it if it
+isn't. This is done entirely with Emacs' built-in package management tools. All
+other packages should be setup with use-package instead.
+
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+  (eval-when-compile
+    (require 'use-package))
+#+END_SRC
+
+=Ensure= packages are installed by default. An ensured package will be downloaded
+from the package archives if it is not already present.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'use-package-ensure)
+  (setq use-package-always-ensure t)
+#+END_SRC
+
+
+** Try
+
+https://github.com/larstvei/Try
+
+=Try= allows you to try download and use a package without permanently saving it
+to your system. In other words it lets you try a package out before installing.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package try
+    :commands try)
 #+END_SRC
 
 
@@ -359,7 +522,7 @@ Put comments in output file to denote sections.
 
 *** Results
 
-Prevent evaluation results from being appended to ~init.org~.
+Prevent evaluation results from being appended to =init.org=.
 
 #+BEGIN_SRC org :tangle no
   #+PROPERTY: header-args+ :results silent
@@ -369,11 +532,10 @@ Prevent evaluation results from being appended to ~init.org~.
 
 ** Emacs File Local Variables
 
-Compile ~init.el~ whenever ~init.org~ is saved in Emacs.
+Compile =init.el= whenever =init.org= is saved in Emacs.
 
-_The start of the local variables list should be no more than 3000
-characters from the end of the file..._ I had a very unpleasant time
-figuring that out.
+_The start of the local variables list should be no more than 3000 characters
+from the end of the file..._ I had a very unpleasant time figuring that out.
 
 #+BEGIN_SRC org :tangle no
   # Local Variables:
