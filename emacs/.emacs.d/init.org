@@ -559,6 +559,106 @@ and beyond.
 #+END_SRC
 
 
+* Key Bindings
+
+** Bind-key
+
+[[Use-package]] includes a package called =bind-key= to improve the keybinding
+process.
+
+It's syntax is slightly simpler. For example...
+~(global-set-key (kbd "C-c n") 'global-display-line-numbers-mode)~
+becomes...
+~(bind-key "C-c n" 'global-display-line-numbers-mode)~
+
+Keys bound with ~key-bind*~ cannot be overwritten by mode-specific keybindings.
+
+And finally, ~describe-personal-keybindings~ lists all keybindings made with
+=bind-key='s functions. This allows the user to keep track of all changes made to
+Emacs' default keybindings.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'bind-key)
+#+END_SRC
+
+
+** Build
+
+Build the program including the current buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c b" 'compixle)
+  (bind-key "C-c B" 'kill-compilation)
+#+END_SRC
+
+
+** Cleanup Whitespace
+
+Clean up a variety of whitespace problems.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c c" 'whitespace-cleanup)
+#+END_SRC
+
+
+** Diff
+
+Diff buffer with its associated file, showing unsaved changes.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c d" 'diff-buffer-with-file)
+#+END_SRC
+
+
+** Line Numbers
+
+Toggle line numbers.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c n" 'global-display-line-numbers-mode)
+#+END_SRC
+
+
+** Revert Buffer
+
+Borrowing from the Common User Access (CUA) conventions, bind =<f5>= to Emacs'
+equivalent of a /refresh/ command.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "<f5>" 'revert-buffer)
+  (bind-key "M-<f5>" 'auto-revert-mode)
+#+END_SRC
+
+
+** Set Variable
+
+Interactively set a *customisable* variable. See [[info:emacs#Examining][manual]] for more info.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c v" 'set-variable)
+#+END_SRC
+
+
+** Suspend
+
+By default =C-z= is bound to ~suspend-frame~. This emulates the Unix shell behaviour
+of =C-z= issuing a =SIGTSTP= signal. This can be an annoying behaviour for GUI
+applications, where the concept of a background job isn't applicable.
+
+#+BEGIN_SRC emacs-lisp
+  (unbind-key "C-z")
+#+END_SRC
+
+
+** Whitespace Mode
+
+Toggle whitespace indicators.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c w" 'whitespace-mode)
+#+END_SRC
+
+
 * init.org
 
 ** Org-mode Properties
