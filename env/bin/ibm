@@ -11,8 +11,10 @@ if [ $# -lt 1 ]; then
 	exit 1
 fi
 
-dirs=${@:2}
+age=$1
+shift
+dirs=$@
 dirs=${dirs:-$PWD}
 for dir in $dirs; do
-	find $dir -ctime +$1 ! -path $dir -delete
+	find $dir -ctime +$age ! -path $dir -delete
 done
