@@ -184,7 +184,7 @@ As an exception, use tabs in ~makefile-mode~. (Makefiles require tabs.)
   (setq-default tab-always-indent nil)
 
   ;; newlines don't indent the previous line
-  ;;(setq-default electric-indent-inhibit t)
+  (setq-default electric-indent-inhibit t)
 #+END_SRC
 
 
@@ -483,6 +483,20 @@ from the package archives if it is not already present.
 #+END_SRC
 
 
+** AUCTeX
+
+https://www.gnu.org/software/auctex/
+
+Enhanced TeX mode. Using PDF Tools for viewing PDFs inside Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tex
+    :ensure auctex
+    :requires pdf-tools
+    :custom (TeX-view-program-selection '((output-pdf "PDF Tools"))))
+#+END_SRC
+
+
 ** Corfu
 
 https://github.com/minad/corfu
@@ -491,10 +505,10 @@ Modular at-point completion system. I had used Company in the past.
 
 #+BEGIN_SRC emacs-lisp
   (use-package corfu
-    :hook ((prog-mode . corfu-mode))
     :custom
     (corfu-auto t "Enable autocomplete")
-    (corfu-auto-delay 0.1 "Delay before autocompleting"))
+    (corfu-auto-delay 0.1 "Delay before autocompleting")
+    :config (global-corfu-mode))
 #+END_SRC
 
 
@@ -505,7 +519,8 @@ https://joaotavora.github.io/eglot/
 LSP (Language Server Protocol) client. Built-in to Emacs 29 and beyond.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package eglot)
+    (use-package eglot
+      :custom (eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider)))
 #+END_SRC
 
 
@@ -518,6 +533,18 @@ Provides descriptions next to completions.
 #+BEGIN_SRC emacs-lisp
   (use-package marginalia
     :config (marginalia-mode))
+#+END_SRC
+
+
+** PDF Tools
+
+https://github.com/vedang/pdf-tools
+
+Enhanced PDF viewer.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package pdf-tools
+    :config (pdf-loader-install))
 #+END_SRC
 
 
