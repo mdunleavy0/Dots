@@ -518,9 +518,20 @@ https://joaotavora.github.io/eglot/
 
 LSP (Language Server Protocol) client. Built-in to Emacs 29 and beyond.
 
+Requires language servers to be installed on the system. I use the following
+language servers:
+
+| Language | Server   |
+|----------+----------|
+| C/C++    | [[https://clangd.llvm.org/][clangd]]   |
+| LaTeX    | [[https://github.com/astoff/digestif][Digestif]] |
+
 #+BEGIN_SRC emacs-lisp
-    (use-package eglot
-      :custom (eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider)))
+  (use-package eglot
+    :hook
+    ((c-mode c++-mode tex-mode) . eglot-ensure)
+    :custom
+    (eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider)))
 #+END_SRC
 
 
