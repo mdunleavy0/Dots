@@ -501,14 +501,18 @@ Enhanced TeX mode. Using PDF Tools for viewing PDFs inside Emacs.
 
 https://github.com/minad/corfu
 
-Modular at-point completion system. I had used Company in the past.
+Modular at-point completion system. I had used =Company= in the past instead. The
+=popupinfo= extension adds documentation popups after a delay.
 
 #+BEGIN_SRC emacs-lisp
   (use-package corfu
     :custom
     (corfu-auto t "Enable autocomplete")
     (corfu-auto-delay 0.1 "Delay before autocompleting")
-    :config (global-corfu-mode))
+    (corfu-popupinfo-delay '(1.6 0.8) "Delays before documentation popups")
+    :config
+    (global-corfu-mode 1)
+    (corfu-popupinfo-mode 1))
 #+END_SRC
 
 
@@ -544,6 +548,19 @@ Provides descriptions next to completions.
 #+BEGIN_SRC emacs-lisp
   (use-package marginalia
     :config (marginalia-mode))
+#+END_SRC
+
+
+** Markdown
+
+https://jblevins.org/projects/markdown-mode/
+
+Major mode for editing markdown. Used by Eglot and ElDoc to format
+documentation.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :pin nongnu)
 #+END_SRC
 
 
