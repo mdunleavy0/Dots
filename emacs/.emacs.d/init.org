@@ -492,7 +492,7 @@ Enhanced TeX mode. Using PDF Tools for viewing PDFs inside Emacs.
 #+BEGIN_SRC emacs-lisp
   (use-package tex
     :ensure auctex
-    :requires pdf-tools
+    :after pdf-tools
     :custom (TeX-view-program-selection '((output-pdf "PDF Tools"))))
 #+END_SRC
 
@@ -529,7 +529,7 @@ language servers:
 #+BEGIN_SRC emacs-lisp
   (use-package eglot
     :hook
-    ((c-mode c++-mode tex-mode) . eglot-ensure)
+    ((c-mode c++-mode TeX-mode tex-mode) . eglot-ensure)
     :custom
     (eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider)))
 #+END_SRC
