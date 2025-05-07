@@ -1,0 +1,5 @@
+[[items]]
+file = "~/.emacs.d/base16-custom-theme.el"
+template = "emacs"
+subtemplate = "custom"
+rewrite = true

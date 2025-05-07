@@ -497,6 +497,25 @@ Enhanced TeX mode. Using PDF Tools for viewing PDFs inside Emacs.
 #+END_SRC
 
 
+** Base 16
+
+https://github.com/chriskempson/base16
+https://github.com/tinted-theming/home
+https://github.com/tinted-theming/base16-emacs/tree/main
+
+Base16 theme for Emacs. Base16 is a framework for defining colour themes across
+multiple applications. It uses a palette 16 colours. The =base16-custom= theme is
+generated using [[https://github.com/misterio77/flavours][Flavours]].
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package base16-theme
+    :ensure t
+    :config
+    (load-theme 'base16-custom t))
+#+END_SRC
+
+
 ** Corfu
 
 https://github.com/minad/corfu

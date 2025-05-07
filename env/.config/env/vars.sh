@@ -5,7 +5,7 @@ export ENVVAR_LOCK=1
 
 # path
 # Add user bin directory.
-export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin"
 
 # xdg base directories
 export XDG_CACHE_HOME="$HOME/.cache"
