@@ -24,7 +24,7 @@ fi
 # firefox
 if command -v firefox >/dev/null; then
     export BROWSER='firefox'
-    export MOZ_USE_XINPUT2=1    # enable touchscreen scrolling
+    #export MOZ_USE_XINPUT2=1    # enable touchscreen scrolling
 fi
 
 # hunspell
