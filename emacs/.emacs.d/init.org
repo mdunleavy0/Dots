@@ -380,6 +380,31 @@ Indent text according to outline structure. (Calls ~org-indent-mode~.)
 #+END_SRC
 
 
+** Title Sizes
+
+Enlarge the fonts on heading lines. Taken from
+https://sophiebos.io/posts/prettifying-emacs-org-mode/.
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'org
+
+    ; set size of document title and other fields
+    (set-face-attribute 'org-document-title nil :weight 'bold :height 1.7)
+    (set-face-attribute 'org-document-info nil :weight 'bold :height 1.2)
+
+    ; set heading sizes
+    (dolist (face '((org-level-1 . 1.35)
+                    (org-level-2 . 1.3)
+                    (org-level-3 . 1.2)
+                    (org-level-4 . 1.1)
+                    (org-level-5 . 1.1)
+                    (org-level-6 . 1.1)
+                    (org-level-7 . 1.1)
+                    (org-level-8 . 1.1)))
+      (set-face-attribute (car face) nil :weight 'bold :height (cdr face))))
+#+END_SRC
+
+
 * Miscellaneous
 
 ** Shell Script
@@ -626,6 +651,24 @@ Major mode for the Mustache templating format. Used by [[*Base16]].
 
 #+BEGIN_SRC emacs-lisp
   (use-package mustache-mode)
+#+END_SRC
+
+
+** Org
+
+*** Org-superstar
+
+https://github.com/integral-dw/org-superstar-mode
+
+Provides prettified bullets to headings and lists in =org-mode=. A successor to [[https://github.com/integral-dw/org-bullets][Org-bullets]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-superstar
+    :config
+    (setq org-superstar-headline-bullets-list '("◉" ("🞛" ?◈) "○" "▷"))
+    (setq org-superstar-cycle-headline-bullets nil)
+    :hook
+    (org-mode . org-superstar-mode))
 #+END_SRC
 
 
