@@ -656,6 +656,27 @@ Major mode for the Mustache templating format. Used by [[*Base16]].
 
 ** Org
 
+*** TODO Org-appear
+
+https://github.com/awth13/org-appear
+
+Reverts elements of org formatting to plain text when the point is over
+them. Requires Emacs 29.1 at time of writing.
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package org-appear
+    :hook
+    (org-mode . org-appear-mode)
+    :custom
+    (org-appear-autoemphasis t "Revert emphasis markers")
+    (org-appear-autolinks t "Revert links")
+    (org-appear-autosubmarkers t "Revert subscripts and superscripts")
+    (org-appear-autoentities t "Revert TeX-like special symbols")
+    (org-appear-autokeywords t "Revert document info keywords")
+    (org-appear-inside-latex t "Revert LaTeX"))
+#+END_SRC
+
+
 *** Org-superstar
 
 https://github.com/integral-dw/org-superstar-mode
@@ -664,11 +685,11 @@ Provides prettified bullets to headings and lists in =org-mode=. A successor to 
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-superstar
-    :config
-    (setq org-superstar-headline-bullets-list '("◉" ("🞛" ?◈) "○" "▷"))
-    (setq org-superstar-cycle-headline-bullets nil)
     :hook
-    (org-mode . org-superstar-mode))
+    (org-mode . org-superstar-mode)
+    :custom
+    (org-superstar-headline-bullets-list '("◉" ("🞛" ?◈) "○" "▷"))
+    (org-superstar-cycle-headline-bullets nil))
 #+END_SRC
 
 
