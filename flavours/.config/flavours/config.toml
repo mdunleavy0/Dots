@@ -3,3 +3,13 @@ file = "~/.emacs.d/base16-custom-theme.el"
 template = "emacs"
 subtemplate = "custom"
 rewrite = true
+
+[[items]]
+file = "~/.config/base16-shell/scripts/base16-custom.sh"
+template = "shell"
+rewrite = true
+
+[[items]]
+file = "~/.local/share/konsole/Base16Custom.colorscheme"
+template = "konsole"
+rewrite = true

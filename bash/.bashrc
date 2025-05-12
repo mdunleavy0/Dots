@@ -24,6 +24,18 @@ source "$XDG_CONFIG_HOME/env/functions.sh"
 
 ################################################################################
 
+# base16 shell theme
+# Taken from https://github.com/chriskempson/base16-shell/tree/master.
+# Requires git repo to be cloned to ~/.config.
+BASE16_SHELL="$HOME/.config/base16-shell/"
+if [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ]; then
+    source "$BASE16_SHELL/profile_helper.sh"
+fi
+# for reasons I don't understand this cannot be in the if-block above
+if [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ]; then
+    base16_custom
+fi
+
 # completion
 # Likely already sourced by the system config in /etc/ .
 if ! shopt -oq posix; then
