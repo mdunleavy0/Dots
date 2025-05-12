@@ -534,7 +534,13 @@ generated using [[https://github.com/misterio77/flavours][Flavours]].
 
 #+BEGIN_SRC emacs-lisp
   (use-package base16-theme
-    :config (load-theme 'base16-custom t))
+    :config
+    ;; load the theme named in Flavours' 'lastscheme' file
+    (let* ((path "~/.local/share/flavours/lastscheme")
+           (theme-name (concat "base16-" (with-temp-buffer
+                                           (insert-file-contents path)
+                                           (buffer-string)))))
+      (load-theme (intern theme-name) t)))
 #+END_SRC
 
 
