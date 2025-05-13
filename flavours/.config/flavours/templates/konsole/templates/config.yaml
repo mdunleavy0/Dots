@@ -1,3 +1,7 @@
 default:
   extension: .colorscheme
   output: colorscheme
+
+complement:
+  extension: -complement.colorscheme
+  output: colorscheme-complement

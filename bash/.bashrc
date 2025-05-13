@@ -27,7 +27,7 @@ source "$XDG_CONFIG_HOME/env/functions.sh"
 # base16 shell theme
 # Taken from https://github.com/chriskempson/base16-shell/tree/master.
 # Requires git repo to be cloned to ~/.config.
-BASE16_SHELL="$HOME/.config/base16-shell/"
+BASE16_SHELL="$XDG_CONFIG_HOME/base16-shell/"
 if [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ]; then
     source "$BASE16_SHELL/profile_helper.sh"
 fi

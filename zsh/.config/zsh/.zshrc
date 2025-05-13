@@ -9,6 +9,16 @@ fi
 
 ################################################################################
 
+# environment
+# Source shell-agnostic environment variables, aliases, and functions.
+: "${XDG_CONFIG_HOME:=$HOME/.config}"
+emulate sh -c 'source $XDG_CONFIG_HOME/env/system.sh'
+emulate sh -c 'source $XDG_CONFIG_HOME/env/vars.sh'
+emulate sh -c 'source $XDG_CONFIG_HOME/env/aliases.sh'
+emulate sh -c 'source $XDG_CONFIG_HOME/env/functions.sh'
+
+################################################################################
+
 # auto-pushd
 # Push directories to the stack with cd (because I never remember to use pushd).
 setopt auto_pushd
@@ -16,7 +26,7 @@ setopt auto_pushd
 # base16 shell theme
 # Taken from https://github.com/chriskempson/base16-shell/tree/master.
 # Requires git repo to be cloned to ~/.config.
-BASE16_SHELL="$HOME/.config/base16-shell/"
+BASE16_SHELL="$XDG_CONFIG_HOME/base16-shell/"
 if [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ]; then
     source "$BASE16_SHELL/profile_helper.sh"
 fi
@@ -69,14 +79,6 @@ zstyle ':completion:*' matcher-list \
 # completions - menu
 # Make completion menu navigable with arrow keys.
 zstyle ':completion:*' menu select
-
-# environment
-# Source shell-agnostic environment variables, aliases, and functions.
-: "${XDG_CONFIG_HOME:=$HOME/.config}"
-emulate sh -c 'source $XDG_CONFIG_HOME/env/system.sh'
-emulate sh -c 'source $XDG_CONFIG_HOME/env/vars.sh'
-emulate sh -c 'source $XDG_CONFIG_HOME/env/aliases.sh'
-emulate sh -c 'source $XDG_CONFIG_HOME/env/functions.sh'
 
 # global aliases
 # Aliases that can occur anywhere in a command, not just the first word.

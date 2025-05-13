@@ -1,0 +1,7 @@
+default:
+    extension: .sh
+    output: scripts
+
+default:
+  extension: -complement.sh
+  output: scripts
