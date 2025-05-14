@@ -870,7 +870,7 @@ Toggle whitespace indicators.
 Mark all source blocks for compilation.
 
 #+BEGIN_SRC org :tangle no
-  #+PROPERTY: header-args  :tangle yes
+  ,#+PROPERTY: header-args  :tangle yes
 #+END_SRC
 #+PROPERTY: header-args  :tangle yes
 
@@ -880,7 +880,7 @@ Mark all source blocks for compilation.
 Put comments in output file to denote sections.
 
 #+BEGIN_SRC org :tangle no
-  #+PROPERTY: header-args+ :comments yes
+  ,#+PROPERTY: header-args+ :comments yes
 #+END_SRC
 #+PROPERTY: header-args+ :comments yes
 
@@ -890,7 +890,7 @@ Put comments in output file to denote sections.
 Prevent evaluation results from being appended to =init.org=.
 
 #+BEGIN_SRC org :tangle no
-  #+PROPERTY: header-args+ :results silent
+  ,#+PROPERTY: header-args+ :results silent
 #+END_SRC
 #+PROPERTY: header-args+ :results silent
 
@@ -900,8 +900,8 @@ Prevent evaluation results from being appended to =init.org=.
 Since this is a large Org file, open it with the headings folded for faster
 navigation.
 
-#+BEGIN_SRC emacs-lisp
-  #+STARTUP: fold
+#+BEGIN_SRC emacs-lisp :tangle no
+  ,#+STARTUP: fold
 #+END_SRC
 #+STARTUP: fold
 
