@@ -1,16 +1,23 @@
 [[items]]
-file = "~/.emacs.d/base16-custom-theme.el"
 template = "emacs"
+file = "~/.emacs.d/base16-custom-theme.el"
 rewrite = true
 
 [[items]]
-file = "~/.config/base16-shell/scripts/base16-custom.sh"
-template = "shell"
-subtemplate = "complement"
+template = "kde-plasma"
+file = "~/.local/share/color-schemes/Base16Custom.colors"
 rewrite = true
+hook = "plasma-apply-colorscheme BreezeLight; plasma-apply-colorscheme Base16Custom"
 
 [[items]]
-file = "~/.local/share/konsole/Base16Custom.colorscheme"
 template = "konsole"
 subtemplate = "complement"
+file = "~/.local/share/konsole/Base16Custom.colorscheme"
 rewrite = true
+
+[[items]]
+template = "shell"
+subtemplate = "complement"
+file = "~/.config/base16-shell/scripts/base16-custom.sh"
+rewrite = true
+
