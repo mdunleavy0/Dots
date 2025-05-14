@@ -895,6 +895,17 @@ Prevent evaluation results from being appended to =init.org=.
 #+PROPERTY: header-args+ :results silent
 
 
+** Folding
+
+Since this is a large Org file, open it with the headings folded for faster
+navigation.
+
+#+BEGIN_SRC emacs-lisp
+  #+STARTUP: fold
+#+END_SRC
+#+STARTUP: fold
+
+
 ** Emacs File Local Variables
 
 Compile =init.el= whenever =init.org= is saved in Emacs.
