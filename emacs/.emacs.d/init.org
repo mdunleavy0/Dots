@@ -563,6 +563,8 @@ generated using [[https://github.com/misterio77/flavours][Flavours]].
 
 #+BEGIN_SRC emacs-lisp
   (use-package base16-theme
+    :custom
+    (base16-theme-256-color-source 'colors)
     :config
     ;; load the theme named in Flavours' 'lastscheme' file
     (let* ((path "~/.local/share/flavours/lastscheme")
@@ -693,6 +695,7 @@ Icons for minibuffer completion. Integrates with [[*Vertico]] and [[*Marginalia]
 #+BEGIN_SRC emacs-lisp
   (use-package nerd-icons-completion
     :after marginalia
+    :if window-system
     :config
     (nerd-icons-completion-mode)
     (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
@@ -708,6 +711,7 @@ Icons for [[*Corfu]] completions.
 #+BEGIN_SRC emacs-lisp
   (use-package nerd-icons-corfu
     :after corfu
+    :if window-system
     :config
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
 #+END_SRC
@@ -722,6 +726,7 @@ make icons visible in [[*Consult]] previews.
 
 #+BEGIN_SRC emacs-lisp
   (use-package nerd-icons-dired
+    :if window-system
     :hook
     (dired-after-readin . nerd-icons-dired-mode))
 #+END_SRC
