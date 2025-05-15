@@ -437,7 +437,7 @@ dotfiles directory.)
 
 ** Prerequisites
 
-Package's are a built-in feature since Emacs 24 (although they were available
+Packages are a built-in feature since Emacs 24 (although they were available
 earlier).
 
 #+BEGIN_SRC emacs-lisp
@@ -541,6 +541,49 @@ generated using [[https://github.com/misterio77/flavours][Flavours]].
                                            (insert-file-contents path)
                                            (buffer-string)))))
       (load-theme (intern theme-name) t)))
+#+END_SRC
+
+
+** Consult
+
+https://github.com/minad/consult
+
+=Consult= provides a variety of minibuffer completion menus with previews in the
+main buffer. Most notable is ~consult-buffer~, a ~C-x b~ replacement. Almost all of
+the keybindings are taken from the Consult readme and are upgraded versions of
+built-in commands and bindings. Included in the ~:config~ section is code to
+provide file previews in ~find-file~.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package consult
+    :defer nil
+
+    :bind
+    ("C-x b" . consult-buffer)
+    ("C-x 4 b" . consult-buffer-other-window)
+    ("C-x 5 b" . consult-buffer-other-frame)
+    ("C-x t b" . consult-buffer-other-tab)
+    ("C-x r b" . consult-bookmark)
+    ("C-x p b" . consult-project-buffer)
+    ("C-c m" . consult-man)
+    ("C-c i" . consult-info)
+    ("M-y" . consult-yank-from-kill-ring)
+    ("M-g g" . consult-goto-line)
+    ("M-g M-g" . consult-goto-line)
+    ("M-g o" . consult-outline)
+
+    :config
+    ;; From https://github.com/minad/consult/wiki#previewing-files-in-find-file
+    (setq read-file-name-function #'consult-find-file-with-preview)
+    (defun consult-find-file-with-preview (prompt &optional dir default mustmatch initial pred)
+      (interactive)
+      (let ((default-directory (or dir default-directory))
+            (minibuffer-completing-file-name t))
+        (consult--read #'read-file-name-internal :state (consult--file-preview)
+                       :prompt prompt
+                       :initial initial
+                       :require-match mustmatch
+                       :predicate pred))))
 #+END_SRC
 
 
