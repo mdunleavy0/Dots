@@ -418,6 +418,15 @@ current line.
 #+END_SRC
 
 
+** History
+
+Enable minibuffer history. Used by [[*Vertico]].
+
+#+BEGIN_SRC emacs-lisp
+  (savehist-mode 1)
+#+END_SRC
+
+
 ** Package List
 
 Highlight the current line when visiting the package list.
