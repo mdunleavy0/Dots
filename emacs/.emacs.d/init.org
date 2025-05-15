@@ -418,6 +418,15 @@ current line.
 #+END_SRC
 
 
+** Package List
+
+Highlight the current line when visiting the package list.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'package-menu-mode-hook #'hl-line-mode)
+#+END_SRC
+
+
 ** Shell Script
 
 *** Default Shell
@@ -621,7 +630,8 @@ Modular at-point completion system. I had used =Company= in the past instead. Th
 
 https://github.com/purcell/diredfl
 
-Colourise [[*Dired]].
+Colourise [[*Dired]]. Uses ~'dired-after-reading-hook~ instead of calling
+~diredfl-global-mode~ to make icons visible in [[*Consult]] previews.
 
 #+BEGIN_SRC emacs-lisp
   (use-package diredfl
@@ -893,6 +903,15 @@ Diff buffer with its associated file, showing unsaved changes.
 
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c d" 'diff-buffer-with-file)
+#+END_SRC
+
+
+** Highlight Line
+
+Toggle active line highlighting.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c h" 'global-hl-line-mode)
 #+END_SRC
 
 
