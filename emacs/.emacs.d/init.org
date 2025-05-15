@@ -407,6 +407,17 @@ https://sophiebos.io/posts/prettifying-emacs-org-mode/.
 
 * Miscellaneous
 
+** Dired
+
+Emacs' fire manager. Set =ls= flags used to format entries and highlight the
+current line.
+
+#+BEGIN_SRC emacs-lisp
+  (setq dired-listing-switches "-AFGhl")
+  (add-hook 'dired-mode-hook #'hl-line-mode)
+#+END_SRC
+
+
 ** Shell Script
 
 *** Default Shell
@@ -606,6 +617,22 @@ Modular at-point completion system. I had used =Company= in the past instead. Th
 #+END_SRC
 
 
+** DiredFL
+
+https://github.com/purcell/diredfl
+
+Colourise [[*Dired]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package diredfl
+    :hook
+    (dired-after-readin . diredfl-mode)
+    :config
+    ;; change default file name colour to the default text colour
+    (set-face-foreground 'diredfl-file-name (face-foreground 'default)))
+#+END_SRC
+
+
 ** Eglot
 
 https://joaotavora.github.io/eglot/
@@ -664,6 +691,20 @@ Icons for [[*Corfu]] completions.
     :after corfu
     :config
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
+#+END_SRC
+
+
+*** Nerd Icons Dired
+
+https://github.com/rainstormstudio/nerd-icons-dired
+
+Icons for [[*Dired]]. Uses ~'dired-after-reading-hook~ instead of ~'dired-mode-hook~ to
+make icons visible in [[*Consult]] previews.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package nerd-icons-dired
+    :hook
+    (dired-after-readin . nerd-icons-dired-mode))
 #+END_SRC
 
 
