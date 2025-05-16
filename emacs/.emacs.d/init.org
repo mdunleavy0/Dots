@@ -637,6 +637,28 @@ Modular at-point completion system. I had used =Company= in the past instead. Th
 #+END_SRC
 
 
+
+** CRUX
+
+https://github.com/bbatsov/crux
+
+B. Batsov's /Collection of Ridiculous Useful eXtensions/ is a set small elisp
+functions to improve editting. The package comes with no default
+keybindings. That way if you aren't interested in a command, you can easily
+ignore it.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package crux
+    :defer nil
+    :bind (([remap move-beginning-of-line] . crux-move-beginning-of-line)
+           ("C-c c" . crux-duplicate-current-line-or-region)
+           ("C-c C" . crux-duplicate-and-comment-current-line-or-region)
+           ("C-c D" . crux-delete-file-and-buffer)
+           ("C-c R" . crux-rename-file-and-buffer)
+           ("C-c s" . crux-sudo-edit)))
+#+END_SRC
+
+
 ** DiredFL
 
 https://github.com/purcell/diredfl
@@ -674,6 +696,72 @@ language servers:
     ((c-mode c++-mode TeX-mode tex-mode) . eglot-ensure)
     :custom
     (eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider)))
+#+END_SRC
+
+
+** Expand Region
+
+https://github.com/magnars/expand-region.el
+
+Expand the marked region by semantic units.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :bind ("C-=" . er/expand-region))
+#+END_SRC
+
+
+** Marginalia
+
+https://github.com/minad/marginalia
+
+Provides descriptions next to completions.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package marginalia
+    :config (marginalia-mode))
+#+END_SRC
+
+
+** Markdown
+
+https://jblevins.org/projects/markdown-mode/
+
+Major mode for editing markdown. Used by =Eglot= and =ElDoc= to format
+documentation.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :pin nongnu)
+#+END_SRC
+
+
+** Multiple Cursors
+
+https://github.com/magnars/multiple-cursors.el
+
+Multiple cursors package with both keyboard and mouse functionality.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+    :pin nongnu
+    :init (unbind-key "C-<down-mouse-1>") ; mouse-buffer-menu
+    :bind (("C-c m" . 'mc/edit-lines)
+           ("C->" . 'mc/mark-next-like-this)
+           ("C-<" . 'mc/mark-previous-like-this)
+           ("C-c C->" . 'mc/mark-all-like-this)
+           ("C-<mouse-1>" . 'mc/add-cursor-on-click)))
+#+END_SRC
+
+
+** Mustache
+
+https://github.com/mustache/emacs
+
+Major mode for the Mustache templating format. Used by [[*Base16]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package mustache-mode)
 #+END_SRC
 
 
@@ -729,42 +817,6 @@ make icons visible in [[*Consult]] previews.
     :if window-system
     :hook
     (dired-after-readin . nerd-icons-dired-mode))
-#+END_SRC
-
-
-** Marginalia
-
-https://github.com/minad/marginalia
-
-Provides descriptions next to completions.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package marginalia
-    :config (marginalia-mode))
-#+END_SRC
-
-
-** Markdown
-
-https://jblevins.org/projects/markdown-mode/
-
-Major mode for editing markdown. Used by =Eglot= and =ElDoc= to format
-documentation.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package markdown-mode
-    :pin nongnu)
-#+END_SRC
-
-
-** Mustache
-
-https://github.com/mustache/emacs
-
-Major mode for the Mustache templating format. Used by [[*Base16]].
-
-#+BEGIN_SRC emacs-lisp
-  (use-package mustache-mode)
 #+END_SRC
 
 
@@ -907,7 +959,7 @@ Build the program including the current buffer.
 Clean up a variety of whitespace problems.
 
 #+BEGIN_SRC emacs-lisp
-  (bind-key "C-c c" 'whitespace-cleanup)
+  (bind-key "C-c W" 'whitespace-cleanup)
 #+END_SRC
 
 
