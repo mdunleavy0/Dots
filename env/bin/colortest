@@ -1,0 +1,14 @@
+#! /bin/bash
+# Print terminal colours
+
+names=( 'Black' 'Red' 'Green' 'Yellow' \
+        'Blue' 'Magenta' 'Cyan' 'White' \
+        'Bright Black' 'Bright Red'  'Bright Green' 'Bright Yellow' \
+        'Bright Blue' 'Bright Magenta' 'Bright Cyan' 'Bright White')
+
+for i in {0..21}; do
+    # coloured background
+    printf '\e[48;5;%dm \e[1m%2d.\e[22m %-14s \e[0m ' "$i" "$i" "${names[i]}"
+    #coloured text
+    printf '\e[38;5;%dm \e[1m%2d.\e[22m %-14s \e[0m\n' "$i" "$i" "${names[i]}"
+done
