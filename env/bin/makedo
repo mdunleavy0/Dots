@@ -1,0 +1,30 @@
+#! /bin/sh
+# makedo - make a single program and run it
+
+# if no program is provided
+if [ $# -lt 1 ]; then
+    echo "Usage: makedo PROGRAM [ARGUMENT]..."
+    exit 1
+fi
+
+# read program name and arguments
+program=$1
+shift
+args=$@
+
+# make
+make $program
+err=$?
+if [ $err -ne 0 ]; then
+    echo "MAKEDO: make exited with code $err." >&2
+    exit 10
+fi
+
+# do (ie. run program)
+./$program $args <&0
+err=$?
+if [ $err -ne 0 ]; then
+    [ $args -z ] && cmd="$program" || cmd="$program $args"
+    echo "MAKEDO: '$cmd' exited with code $err." >&2
+    exit 20
+fi
