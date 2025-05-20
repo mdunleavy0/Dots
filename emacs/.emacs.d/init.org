@@ -1,5 +1,5 @@
-#+TITLE:	Emacs Configuration
-#+AUTHOR:	Michael Dunleavy
+#+title:	Emacs Configuration
+#+author:	Michael Dunleavy
 
 
 * Preface
@@ -16,7 +16,7 @@ the end of this document.
 
 Warn readers of =init.el= not to modify =init.el= directly.
 
-#+BEGIN_SRC emacs-lisp :comments no
+#+begin_src emacs-lisp :comments no
   ;;
   ;; DO NOT MODIFY THIS FILE DIRECTLY.
   ;; This file was automatically generated from init.org using babel.
@@ -25,7 +25,7 @@ Warn readers of =init.el= not to modify =init.el= directly.
   ;; overwriting any changes made outside of init.org.
   ;;
 
-#+END_SRC
+#+end_src
 
 
 * Customize
@@ -34,12 +34,12 @@ Warn readers of =init.el= not to modify =init.el= directly.
 but some modes automatically edit it. This code moves Customize's state out of
 =init.el= to a separate file.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
     (setq custom-file "~/.emacs.d/custom.el")
     (if (file-exists-p custom-file)
         (load custom-file t)
       (write-region "" nil custom-file))
-#+END_SRC
+#+end_src
 
 
 * Garbage Collection
@@ -51,9 +51,9 @@ down. However, when I profiled startup there was no improvement after 20 MB. I
 think the remaining garbage collections were triggered by heap allocations. The
 related variable ~gc-cons-percentage~ had no effect on startup time.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq gc-cons-threshold (* 20 1000 1000)) ; 20 MB (default 0.8 MB)
-#+END_SRC
+#+end_src
 
 Here's some profiling code. ~use-package-verbose~ echoes messages when each
 package managed by [[*Use-package]] loads, which is handy for identifying packages
@@ -61,7 +61,7 @@ that need deferring. The rest is a snippet that prints startup time and the
 number of garbage collections it took. I've also tried out [[https://github.com/jschaf/esup][ESUP]] (the Emacs
 Start-Up Profiler), which may be of use.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   ;; (setq use-package-verbose t)
 
   ;; ;; Taken from
@@ -73,7 +73,7 @@ Start-Up Profiler), which may be of use.
   ;;                     (time-subtract after-init-time before-init-time)))
   ;;            gcs-done))
   ;; (add-hook 'emacs-startup-hook #'efs/display-startup-time)
-#+END_SRC
+#+end_src
 
 
 * User Interface
@@ -82,18 +82,18 @@ Start-Up Profiler), which may be of use.
 
 Do not open the =About GNU Emacs= splash screen on startup.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq inhibit-startup-screen t)
-#+END_SRC
+#+end_src
 
 
 ** Terminal Mouse
 
 Enable mouse when running Emacs from xterm compatible terminal emulators.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (xterm-mouse-mode 1)
-#+END_SRC
+#+end_src
 
 
 ** Tool-bar & Menu-bar
@@ -103,11 +103,11 @@ menu-bar provides textual drop-down menus for a wider range of tasks. Active
 modes may add menu-bar menus. Both bars can be considered obtrusive. However,
 the contextual menu-bar entries are useful in unfamiliar modes.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (tool-bar-mode -1)
   (if (not window-system)
       (menu-bar-mode -1))
-#+END_SRC
+#+end_src
 
 
 ** Scroll-bar
@@ -115,18 +115,18 @@ the contextual menu-bar entries are useful in unfamiliar modes.
 Disable the graphical scrollbar. I find it unnecessary, given the keyboard
 navigation options and the row information on the mode line.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (scroll-bar-mode -1)
-#+END_SRC
+#+end_src
 
 
 ** Column Numbers
 
 Add column numbers next to row numbers on the mode line.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (column-number-mode)
-#+END_SRC
+#+end_src
 
 
 ** Frame Size
@@ -136,14 +136,14 @@ column boundaries (or at least it does on KDE). This looks bad when you maximise
 a frame/window and there's a sliver of desktop visible. The following code
 disables this behaviour.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq frame-resize-pixelwise t)
-#+END_SRC
+#+end_src
 
 Additionally, for KDE systems, perform the following steps from
 https://www.emacswiki.org/emacs/KdeMaximized:
 
-#+BEGIN_QUOTE
+#+begin_quote
     1. Right click on the Emacs image in the title bar.
     2. More Actions > Special Window Settings…
     3. Click on the Size & Position tab
@@ -151,16 +151,16 @@ https://www.emacswiki.org/emacs/KdeMaximized:
     5. Choose ‘Force’ in the dropdown menu
     6. Select ‘No’ from the radio buttons to its right
     7. Click the ‘OK’ button at the bottom to save your settings.
-#+END_QUOTE
+#+end_quote
 
 
 ** Yes or No Prompts
 
 Replace yes/no prompts with y/n prompts.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
+#+end_src
 
 
 * Editing
@@ -170,18 +170,18 @@ Replace yes/no prompts with y/n prompts.
 Let typed text delete and replace any selected text. This is the default
 behaviour in any other software with text editing.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (delete-selection-mode 1)
-#+END_SRC
+#+end_src
 
 
 ** Fill Column
 
 Preferred line width for commands like ~fill-paragraph~.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq-default fill-column 80)
-#+END_SRC
+#+end_src
 
 
 ** Indentation & Whitespace
@@ -191,44 +191,44 @@ Preferred line width for commands like ~fill-paragraph~.
 Prefer spaces for ~prog-mode~, a superclass of all programming modes. Default to
 tabs otherwise.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (add-hook 'prog-mode-hook
 			(lambda () (setq indent-tabs-mode nil)))
-#+END_SRC
+#+end_src
 
 As an exception, use tabs in ~makefile-mode~. (Makefiles require tabs.)
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (add-hook 'makefile-mode-hook
             (lambda () (setq indent-tabs-mode t)))
-#+END_SRC
+#+end_src
 
 
 *** Indentation Width
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq-default tab-width 4)
-#+END_SRC
+#+end_src
 
 
 *** Indentation Behaviour
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   ;; TAB only indents when point is at the start of a line
   (setq-default tab-always-indent nil)
 
   ;; newlines don't indent the previous line
   (setq-default electric-indent-inhibit t)
-#+END_SRC
+#+end_src
 
 
 *** Whitespace Deletion
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   ;; backspace deletes all whitespace at once
   ;; consider writing/stealing a backspace-to-tab-stop function
   (setq backward-delete-char-untabify-method 'hungry)
-#+END_SRC
+#+end_src
 
 
 *** Trailing Whitespace
@@ -236,9 +236,9 @@ As an exception, use tabs in ~makefile-mode~. (Makefiles require tabs.)
 Highlight trailing whitespace. (Even invisible things can bother me.)  Trailing
 whitespace can be purged with ~delete-trailing-whitespace~.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq-default show-trailing-whitespace t)
-#+END_SRC
+#+end_src
 
 
 *** CC Mode
@@ -247,9 +247,9 @@ whitespace can be purged with ~delete-trailing-whitespace~.
 provides settings for indenting and formatting source code in its child
 modes. Preset styles are available with ~c-set-style~.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq c-default-style "stroustrup")
-#+END_SRC
+#+end_src
 
 
 ** Pretty Symbols
@@ -257,18 +257,18 @@ modes. Preset styles are available with ~c-set-style~.
 Minor mode for drawing multi-character tokens as Unicode glyphs
 (e.g. lambda -> λ).
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (global-prettify-symbols-mode 1)
-#+END_SRC
+#+end_src
 
 
 ** Parentheses
 
 Highlight pairs of matching parentheses when the point is on one of them.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (show-paren-mode 1)
-#+END_SRC
+#+end_src
 
 
 ** Spelling
@@ -276,16 +276,16 @@ Highlight pairs of matching parentheses when the point is on one of them.
 Enable spell-checking by default for text modes. Requires a compatible
 spell-checker to be installed on the operating system.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (add-hook 'text-mode-hook 'turn-on-flyspell)
-#+END_SRC
+#+end_src
 
 
 * Auto-saves & Backups
 
 ** Auto-saves
 
-#+BEGIN_QUOTE
+#+begin_quote
 	By default, Emacs automatically saves your changes to a file
 	intermittently. If anything should happen, you can recover a file with
     ~M-x recover-file~.
@@ -297,18 +297,18 @@ spell-checker to be installed on the operating system.
 	Emacs' backup files, you can save them to a dedicated directory
 
 	--- https://emacswiki.org/emacs/AutoSave
-#+END_QUOTE
+#+end_quote
 
 The following code sets the auto-save location to a single, out-of-the-way
 directory.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defvar mike-auto-save-location
 	(expand-file-name "~/.emacs.d/auto-saves/")
 	"Base directory for auto save files.")
   (setq auto-save-file-name-transforms
 		`((".*" ,mike-auto-save-location t)))
-#+END_SRC
+#+end_src
 
 
 ** Backups
@@ -318,7 +318,7 @@ link for walkthrough.
 
 Emacs can automatically back-up old versions of files when changes are saved.
 
-#+BEGIN_QUOTE
+#+begin_quote
 	By default the backup file is made in the same directory as the original
 	with a name like =file~=. The way the backup works is that Emacs makes a
 	copy of a file the first time you save it in an Emacs session. It only makes
@@ -339,7 +339,7 @@ The following code:
 These backups will pile up over time unless regularly purged. Currently I use a
 cron-job to delete backups over 1 week old.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   ;; custom backup location
   ;; will contain sub-directories for per-session and per-save backups
   (defvar mike-backup-location (expand-file-name "~/.emacs.d/backups/")
@@ -390,7 +390,7 @@ cron-job to delete backups over 1 week old.
 		 (buffer-name)))))
 
   (add-hook 'before-save-hook 'mike-backup-every-save)
-#+END_SRC
+#+end_src
 
 
 * Org
@@ -399,18 +399,33 @@ cron-job to delete backups over 1 week old.
 
 Hide emphasis marker characters (such as '/'s for italics).
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq org-hide-emphasis-markers t)
-#+END_SRC
+#+end_src
 
 
 ** Indentation
 
 Indent text according to outline structure. (Calls ~org-indent-mode~.)
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq org-startup-indented t)
-#+END_SRC
+#+end_src
+
+
+** Structure Templates
+
+#+begin_src emacs-lisp
+  (with-eval-after-load 'org
+    (add-to-list 'org-structure-template-alist '("S" . "src emacs-lisp"))
+    ;; resort list
+    (let* ((ls org-structure-template-alist)
+           (ls (sort ls (lambda (a b)
+                          (string> (car a) (car b)))))
+           (ls (sort ls (lambda (a b)
+                          (string< (downcase (car a)) (downcase (car b)))))))
+      (setq org-structure-template-alist ls)))
+#+end_src
 
 
 ** Title Sizes
@@ -418,7 +433,7 @@ Indent text according to outline structure. (Calls ~org-indent-mode~.)
 Enlarge the fonts on heading lines. Taken from
 https://sophiebos.io/posts/prettifying-emacs-org-mode/.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (with-eval-after-load 'org
 
     ; set size of document title and other fields
@@ -435,7 +450,7 @@ https://sophiebos.io/posts/prettifying-emacs-org-mode/.
                     (org-level-7 . 1.1)
                     (org-level-8 . 1.1)))
       (set-face-attribute (car face) nil :weight 'bold :height (cdr face))))
-#+END_SRC
+#+end_src
 
 
 * Miscellaneous
@@ -445,28 +460,28 @@ https://sophiebos.io/posts/prettifying-emacs-org-mode/.
 Emacs' fire manager. Set =ls= flags used to format entries and highlight the
 current line.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq dired-listing-switches "-AFGhl")
   (add-hook 'dired-mode-hook #'hl-line-mode)
-#+END_SRC
+#+end_src
 
 
 ** History
 
 Enable minibuffer history. Used by [[*Vertico]].
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (savehist-mode 1)
-#+END_SRC
+#+end_src
 
 
 ** Package List
 
 Highlight the current line when visiting the package list.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (add-hook 'package-menu-mode-hook #'hl-line-mode)
-#+END_SRC
+#+end_src
 
 
 ** Shell Script
@@ -477,9 +492,9 @@ Set the default shell for =sh-mode= to the plain Bourne shell. Emacs' stock
 behaviour is to set it to ~$SHELL~ or an equivalent. I prefer to use =zsh= as my
 interactive shell but script in either =sh= or =bash= for portability.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (setq sh-shell-file "/bin/sh")
-#+END_SRC
+#+end_src
 
 
 ** Symbolic Links
@@ -488,11 +503,11 @@ Disable warning about following symbolic links to version controlled
 directories. (Of particular interest to me, don't follow this file to my
 dotfiles directory.)
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   ;; honestly, I don't know the full implications of this one
   ;; I just want the yes/no prompt gone
   (setq vc-follow-symlinks nil)
-#+END_SRC
+#+end_src
 
 
 * External Packages
@@ -502,9 +517,9 @@ dotfiles directory.)
 Packages are a built-in feature since Emacs 24 (although they were available
 earlier).
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (require 'package)
-#+END_SRC
+#+end_src
 
 
 ** MELPA
@@ -514,7 +529,7 @@ https://melpa.org/
 Add MELPA to the package archives list. Require https. Taken from
 https://melpa.org/#/getting-started.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
   ;; Comment/uncomment this line to enable MELPA Stable if desired.
@@ -522,7 +537,7 @@ https://melpa.org/#/getting-started.
   ;; Most users will not need or want to do this.
   ;;(add-to-list 'package-archives
   ;;             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-#+END_SRC
+#+end_src
 
 I have moved back to regular Melpa from Melpa Stable. Melpa Stable is a
 lie. I've known this for some time. The sole criterion for a commit ending up in
@@ -538,9 +553,9 @@ unsupervised but at least it has the latest toys.
 By default packages are initialised (ie. loaded and activated) after =init.el= is
 run. Manually initialising them early makes them available for use in =init.el=.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (package-initialize)
-#+END_SRC
+#+end_src
 
 
 ** Use-package
@@ -553,21 +568,21 @@ The following code checks that use-package is installed and downloads it if it
 isn't. This is done entirely with Emacs' built-in package management tools. All
 other packages should be setup with use-package instead.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (unless (package-installed-p 'use-package)
     (package-refresh-contents)
     (package-install 'use-package))
   (eval-when-compile
     (require 'use-package))
-#+END_SRC
+#+end_src
 
 =Ensured= packages are installed by default. An ensured package will be downloaded
 from the package archives if it is not already present.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (require 'use-package-ensure)
   (setq use-package-always-ensure t)
-#+END_SRC
+#+end_src
 
 
 ** AUCTeX
@@ -576,14 +591,14 @@ https://www.gnu.org/software/auctex/
 
 Enhanced TeX mode. Using PDF Tools for viewing PDFs inside Emacs.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package tex
     :pin gnu
     :ensure auctex
     :defer t
     :after pdf-tools
     :custom (TeX-view-program-selection '((output-pdf "PDF Tools"))))
-#+END_SRC
+#+end_src
 
 
 ** Base16
@@ -596,7 +611,7 @@ Base16 theme for Emacs. Base16 is a framework for defining colour themes across
 multiple applications. It uses a palette 16 colours. The =base16-custom= theme is
 generated using [[https://github.com/misterio77/flavours][Flavours]].
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package base16-theme
     :custom
     (base16-theme-256-color-source 'colors)
@@ -607,7 +622,7 @@ generated using [[https://github.com/misterio77/flavours][Flavours]].
                                            (insert-file-contents path)
                                            (buffer-string)))))
       (load-theme (intern theme-name) t)))
-#+END_SRC
+#+end_src
 
 
 ** Consult
@@ -620,7 +635,7 @@ the keybindings are taken from the Consult readme and are upgraded versions of
 built-in commands and bindings. Included in the ~:config~ section is code to
 provide file previews in ~find-file~.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package consult
     :bind
     ("C-x b" . consult-buffer)
@@ -648,7 +663,7 @@ provide file previews in ~find-file~.
                        :initial initial
                        :require-match mustmatch
                        :predicate pred))))
-#+END_SRC
+#+end_src
 
 
 ** Corfu
@@ -658,7 +673,7 @@ https://github.com/minad/corfu
 Modular at-point completion system. I had used =Company= in the past instead. The
 =popupinfo= extension adds documentation popups after a delay.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package corfu
     :custom
     (corfu-auto t "Enable autocomplete")
@@ -667,7 +682,7 @@ Modular at-point completion system. I had used =Company= in the past instead. Th
     :config
     (global-corfu-mode 1)
     (corfu-popupinfo-mode 1))
-#+END_SRC
+#+end_src
 
 
 
@@ -680,7 +695,7 @@ functions to improve editting. The package comes with no default
 keybindings. That way if you aren't interested in a command, you can easily
 ignore it.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package crux
     :bind (([remap move-beginning-of-line] . crux-move-beginning-of-line)
            ("C-c c" . crux-duplicate-current-line-or-region)
@@ -688,7 +703,7 @@ ignore it.
            ("C-c D" . crux-delete-file-and-buffer)
            ("C-c R" . crux-rename-file-and-buffer)
            ("C-c s" . crux-sudo-edit)))
-#+END_SRC
+#+end_src
 
 
 ** DiredFL
@@ -698,14 +713,14 @@ https://github.com/purcell/diredfl
 Colourise [[*Dired]]. Uses ~'dired-after-reading-hook~ instead of calling
 ~diredfl-global-mode~ to make icons visible in [[*Consult]] previews.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package diredfl
     :hook
     (dired-after-readin . diredfl-mode)
     :config
     ;; change default file name colour to the default text colour
     (set-face-foreground 'diredfl-file-name (face-foreground 'default)))
-#+END_SRC
+#+end_src
 
 
 ** Eglot
@@ -722,13 +737,13 @@ language servers:
 | C/C++    | [[https://clangd.llvm.org/][clangd]]   |
 | LaTeX    | [[https://github.com/astoff/digestif][Digestif]] |
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package eglot
     :hook
     ((c-mode c++-mode TeX-mode tex-mode) . eglot-ensure)
     :custom
     (eglot-ignored-server-capabilities '(:documentOnTypeFormattingProvider)))
-#+END_SRC
+#+end_src
 
 
 ** Expand Region
@@ -737,10 +752,10 @@ https://github.com/magnars/expand-region.el
 
 Expand the marked region by semantic units.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package expand-region
     :bind ("C-=" . er/expand-region))
-#+END_SRC
+#+end_src
 
 
 ** Marginalia
@@ -749,10 +764,10 @@ https://github.com/minad/marginalia
 
 Provides descriptions next to completions.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package marginalia
     :config (marginalia-mode))
-#+END_SRC
+#+end_src
 
 
 ** Markdown
@@ -762,10 +777,10 @@ https://jblevins.org/projects/markdown-mode/
 Major mode for editing markdown. Used by =Eglot= and =ElDoc= to format
 documentation.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package markdown-mode
     :pin nongnu)
-#+END_SRC
+#+end_src
 
 
 ** Multiple Cursors
@@ -774,7 +789,7 @@ https://github.com/magnars/multiple-cursors.el
 
 Multiple cursors package with both keyboard and mouse functionality.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package multiple-cursors
     :pin nongnu
     :init (unbind-key "C-<down-mouse-1>") ; mouse-buffer-menu
@@ -783,7 +798,7 @@ Multiple cursors package with both keyboard and mouse functionality.
            ("C-<" . 'mc/mark-previous-like-this)
            ("C-c C->" . 'mc/mark-all-like-this)
            ("C-<mouse-1>" . 'mc/add-cursor-on-click)))
-#+END_SRC
+#+end_src
 
 
 ** Mustache
@@ -792,10 +807,10 @@ https://github.com/mustache/emacs
 
 Major mode for the Mustache templating format. Used by [[*Base16]].
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package mustache-mode
     :defer t)
-#+END_SRC
+#+end_src
 
 
 ** Nerd Icons
@@ -813,14 +828,14 @@ https://github.com/rainstormstudio/nerd-icons-completion
 
 Icons for minibuffer completion. Integrates with [[*Vertico]] and [[*Marginalia]].
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package nerd-icons-completion
     :after marginalia
     :if window-system
     :config
     (nerd-icons-completion-mode)
     (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
-#+END_SRC
+#+end_src
 
 
 *** Nerd Icons Corfu
@@ -829,13 +844,13 @@ https://github.com/LuigiPiucco/nerd-icons-corfu
 
 Icons for [[*Corfu]] completions.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package nerd-icons-corfu
     :after corfu
     :if window-system
     :config
     (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter))
-#+END_SRC
+#+end_src
 
 
 *** Nerd Icons Dired
@@ -845,12 +860,12 @@ https://github.com/rainstormstudio/nerd-icons-dired
 Icons for [[*Dired]]. Uses ~'dired-after-reading-hook~ instead of ~'dired-mode-hook~ to
 make icons visible in [[*Consult]] previews.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package nerd-icons-dired
     :if window-system
     :hook
     (dired-after-readin . nerd-icons-dired-mode))
-#+END_SRC
+#+end_src
 
 
 ** Org
@@ -862,7 +877,7 @@ https://github.com/awth13/org-appear
 Reverts elements of org formatting to plain text when the point is over
 them. Requires Emacs 29.1 at time of writing.
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+begin_src emacs-lisp :tangle no
   (use-package org-appear
     :hook
     (org-mode . org-appear-mode)
@@ -873,7 +888,7 @@ them. Requires Emacs 29.1 at time of writing.
     (org-appear-autoentities t "Revert TeX-like special symbols")
     (org-appear-autokeywords t "Revert document info keywords")
     (org-appear-inside-latex t "Revert LaTeX"))
-#+END_SRC
+#+end_src
 
 
 *** Org-superstar
@@ -882,14 +897,14 @@ https://github.com/integral-dw/org-superstar-mode
 
 Provides prettified bullets to headings and lists in =org-mode=. A successor to [[https://github.com/integral-dw/org-bullets][Org-bullets]].
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package org-superstar
     :hook
     (org-mode . org-superstar-mode)
     :custom
     (org-superstar-headline-bullets-list '("◉" ("🞛" ?◈) "○" "▷"))
     (org-superstar-cycle-headline-bullets nil))
-#+END_SRC
+#+end_src
 
 
 ** PDF Tools
@@ -899,13 +914,13 @@ https://github.com/vedang/pdf-tools
 Enhanced PDF viewer. This package takes ~0.5 s to load but I can't figure out a
 way to defer it until before [[*AUCTeX]] is loaded.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 
   (use-package pdf-tools
     :defer 3
     :if window-system
     :config (pdf-loader-install))
-#+END_SRC
+#+end_src
 
 
 ** Try
@@ -915,10 +930,10 @@ https://github.com/larstvei/Try
 =Try= allows you to try download and use a package without permanently saving it
 to your system. In other words it lets you try a package out before installing.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package try
     :commands try)
-#+END_SRC
+#+end_src
 
 
 ** Vertico
@@ -927,10 +942,10 @@ https://github.com/minad/vertico
 
 Modular vertical minibuffer completion system.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package vertico
     :config (vertico-mode))
-#+END_SRC
+#+end_src
 
 
 ** Which-key
@@ -940,10 +955,10 @@ https://github.com/justbur/emacs-which-key
 Displays suggestions for unfinished key-bindings. Will be built-in to Emacs 30
 and beyond.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package which-key
     :config (which-key-mode))
-#+END_SRC
+#+end_src
 
 
 ** YAML
@@ -952,11 +967,11 @@ https://github.com/yoshiki/yaml-mode
 
 Major mode for YAML data/config files.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package yaml-mode
     :pin nongnu
     :defer t)
-#+END_SRC
+#+end_src
 
 
 * Key Bindings
@@ -977,55 +992,55 @@ And finally, ~describe-personal-keybindings~ lists all keybindings made with
 =bind-key='s functions. This allows the user to keep track of all changes made to
 Emacs' default keybindings.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (require 'bind-key)
-#+END_SRC
+#+end_src
 
 
 ** Build
 
 Build the program including the current buffer.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c b" 'compixle)
   (bind-key "C-c B" 'kill-compilation)
-#+END_SRC
+#+end_src
 
 
 ** Cleanup Whitespace
 
 Clean up a variety of whitespace problems.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c W" 'whitespace-cleanup)
-#+END_SRC
+#+end_src
 
 
 ** Diff
 
 Diff buffer with its associated file, showing unsaved changes.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c d" 'diff-buffer-with-file)
-#+END_SRC
+#+end_src
 
 
 ** Highlight Line
 
 Toggle active line highlighting.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c h" 'global-hl-line-mode)
-#+END_SRC
+#+end_src
 
 
 ** Line Numbers
 
 Toggle line numbers.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c n" 'global-display-line-numbers-mode)
-#+END_SRC
+#+end_src
 
 
 ** Revert Buffer
@@ -1033,19 +1048,19 @@ Toggle line numbers.
 Borrowing from the Common User Access (CUA) conventions, bind =<f5>= to Emacs'
 equivalent of a /refresh/ command.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "<f5>" 'revert-buffer)
   (bind-key "M-<f5>" 'auto-revert-mode)
-#+END_SRC
+#+end_src
 
 
 ** Set Variable
 
 Interactively set a *customisable* variable. See [[info:emacs#Examining][manual]] for more info.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c v" 'set-variable)
-#+END_SRC
+#+end_src
 
 
 ** Suspend
@@ -1054,18 +1069,18 @@ By default =C-z= is bound to ~suspend-frame~. This emulates the Unix shell behav
 of =C-z= issuing a =SIGTSTP= signal. This can be an annoying behaviour for GUI
 applications, where the concept of a background job isn't applicable.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (unbind-key "C-z")
-#+END_SRC
+#+end_src
 
 
 ** Whitespace Mode
 
 Toggle whitespace indicators.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (bind-key "C-c w" 'whitespace-mode)
-#+END_SRC
+#+end_src
 
 
 * init.org
@@ -1076,30 +1091,30 @@ Toggle whitespace indicators.
 
 Mark all source blocks for compilation.
 
-#+BEGIN_SRC org :tangle no
-  ,#+PROPERTY: header-args  :tangle yes
-#+END_SRC
-#+PROPERTY: header-args  :tangle yes
+#+begin_src org :tangle no
+  ,#+property: header-args  :tangle yes
+#+end_src
+#+property: header-args  :tangle yes
 
 
 *** Comments
 
 Put comments in output file to denote sections.
 
-#+BEGIN_SRC org :tangle no
-  ,#+PROPERTY: header-args+ :comments yes
-#+END_SRC
-#+PROPERTY: header-args+ :comments yes
+#+begin_src org :tangle no
+  ,#+property: header-args+ :comments yes
+#+end_src
+#+property: header-args+ :comments yes
 
 
 *** Results
 
 Prevent evaluation results from being appended to =init.org=.
 
-#+BEGIN_SRC org :tangle no
-  ,#+PROPERTY: header-args+ :results silent
-#+END_SRC
-#+PROPERTY: header-args+ :results silent
+#+begin_src org :tangle no
+  ,#+property: header-args+ :results silent
+#+end_src
+#+property: header-args+ :results silent
 
 
 ** Folding
@@ -1107,10 +1122,10 @@ Prevent evaluation results from being appended to =init.org=.
 Since this is a large Org file, open it with the headings folded for faster
 navigation.
 
-#+BEGIN_SRC emacs-lisp :tangle no
-  ,#+STARTUP: fold
-#+END_SRC
-#+STARTUP: fold
+#+begin_src emacs-lisp :tangle no
+  ,#+startup: fold
+#+end_src
+#+startup: fold
 
 
 ** Emacs File Local Variables
@@ -1120,11 +1135,11 @@ Compile =init.el= whenever =init.org= is saved in Emacs.
 _The start of the local variables list should be no more than 3000 characters
 from the end of the file..._ I had a very unpleasant time figuring that out.
 
-#+BEGIN_SRC org :tangle no
+#+begin_src org :tangle no
   # Local Variables:
   # eval: (add-hook 'after-save-hook 'org-babel-tangle nil t)
   # End:
-#+END_SRC
+#+end_src
 
 # Local Variables:
 # eval: (add-hook 'after-save-hook 'org-babel-tangle nil t)
