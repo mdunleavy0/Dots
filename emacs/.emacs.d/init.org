@@ -42,6 +42,40 @@ but some modes automatically edit it. This code moves Customize's state out of
 #+END_SRC
 
 
+* Garbage Collection
+
+Change the allocation threshold before garbage collection occurs. The default is
+quite low compared to modern desktop RAM amounts. One suggestion is to set the
+threshold extra high during startup to speed up initialisation and then bring it
+down. However, when I profiled startup there was no improvement after 20 MB. I
+think the remaining garbage collections were triggered by heap allocations. The
+related variable ~gc-cons-percentage~ had no effect on startup time.
+
+#+BEGIN_SRC emacs-lisp
+  (setq gc-cons-threshold (* 20 1000 1000)) ; 20 MB (default 0.8 MB)
+#+END_SRC
+
+Here's some profiling code. ~use-package-verbose~ echoes messages when each
+package managed by [[*Use-package]] loads, which is handy for identifying packages
+that need deferring. The rest is a snippet that prints startup time and the
+number of garbage collections it took. I've also tried out [[https://github.com/jschaf/esup][ESUP]] (the Emacs
+Start-Up Profiler), which may be of use.
+
+#+BEGIN_SRC emacs-lisp
+  ;; (setq use-package-verbose t)
+
+  ;; ;; Taken from
+  ;; ;; https://github.com/daviwil/emacs-from-scratch/blob/master/show-notes/Emacs-Scratch-12.org
+  ;; (defun efs/display-startup-time ()
+  ;;   (message "Emacs loaded in %s with %d garbage collections."
+  ;;            (format "%.2f seconds"
+  ;;                    (float-time
+  ;;                     (time-subtract after-init-time before-init-time)))
+  ;;            gcs-done))
+  ;; (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+#+END_SRC
+
+
 * User Interface
 
 ** Startup Screen
@@ -243,8 +277,7 @@ Enable spell-checking by default for text modes. Requires a compatible
 spell-checker to be installed on the operating system.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'text-mode-hook
-	    (lambda () (flyspell-mode 1)))
+  (add-hook 'text-mode-hook 'turn-on-flyspell)
 #+END_SRC
 
 
@@ -545,7 +578,9 @@ Enhanced TeX mode. Using PDF Tools for viewing PDFs inside Emacs.
 
 #+BEGIN_SRC emacs-lisp
   (use-package tex
+    :pin gnu
     :ensure auctex
+    :defer t
     :after pdf-tools
     :custom (TeX-view-program-selection '((output-pdf "PDF Tools"))))
 #+END_SRC
@@ -587,8 +622,6 @@ provide file previews in ~find-file~.
 
 #+BEGIN_SRC emacs-lisp
   (use-package consult
-    :defer nil
-
     :bind
     ("C-x b" . consult-buffer)
     ("C-x 4 b" . consult-buffer-other-window)
@@ -630,7 +663,7 @@ Modular at-point completion system. I had used =Company= in the past instead. Th
     :custom
     (corfu-auto t "Enable autocomplete")
     (corfu-auto-delay 0.1 "Delay before autocompleting")
-    (corfu-popupinfo-delay '(1.6 0.8) "Delays before documentation popups")
+    (corfu-popupinfo-delay '(1.6 . 0.8) "Delays before documentation popups")
     :config
     (global-corfu-mode 1)
     (corfu-popupinfo-mode 1))
@@ -649,7 +682,6 @@ ignore it.
 
 #+BEGIN_SRC emacs-lisp
   (use-package crux
-    :defer nil
     :bind (([remap move-beginning-of-line] . crux-move-beginning-of-line)
            ("C-c c" . crux-duplicate-current-line-or-region)
            ("C-c C" . crux-duplicate-and-comment-current-line-or-region)
@@ -761,7 +793,8 @@ https://github.com/mustache/emacs
 Major mode for the Mustache templating format. Used by [[*Base16]].
 
 #+BEGIN_SRC emacs-lisp
-  (use-package mustache-mode)
+  (use-package mustache-mode
+    :defer t)
 #+END_SRC
 
 
@@ -863,10 +896,14 @@ Provides prettified bullets to headings and lists in =org-mode=. A successor to 
 
 https://github.com/vedang/pdf-tools
 
-Enhanced PDF viewer.
+Enhanced PDF viewer. This package takes ~0.5 s to load but I can't figure out a
+way to defer it until before [[*AUCTeX]] is loaded.
 
 #+BEGIN_SRC emacs-lisp
+
   (use-package pdf-tools
+    :defer 3
+    :if window-system
     :config (pdf-loader-install))
 #+END_SRC
 
@@ -917,7 +954,8 @@ Major mode for YAML data/config files.
 
 #+BEGIN_SRC emacs-lisp
   (use-package yaml-mode
-    :pin nongnu)
+    :pin nongnu
+    :defer t)
 #+END_SRC
 
 
