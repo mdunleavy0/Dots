@@ -758,6 +758,17 @@ Expand the marked region by semantic units.
 #+end_src
 
 
+** GLSL
+
+https://github.com/jimhourihan/glsl-mode
+
+Major mode for the OpenGL Shading Language.
+
+#+begin_src emacs-lisp
+  (use-package glsl-mode)
+#+end_src
+
+
 ** Marginalia
 
 https://github.com/minad/marginalia
