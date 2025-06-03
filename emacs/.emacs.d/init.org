@@ -968,6 +968,7 @@ and beyond.
 
 #+begin_src emacs-lisp
   (use-package which-key
+    :custom (which-key-lighter "" "Remove indicator from mode-line")
     :config (which-key-mode))
 #+end_src
 
