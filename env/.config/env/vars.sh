@@ -15,6 +15,11 @@ export XDG_STATE_HOME="$HOME/.local/state"
 
 ################################################################################
 
+# clangd
+if command -v clangd >/dev/null; then
+    export CLANGD_FLAGS="--header-insertion=never" # don't auto-include headers
+fi
+
 # emacs
 if command -v emacs >/dev/null; then
     export EDITOR='emacs -nw'   # command line
