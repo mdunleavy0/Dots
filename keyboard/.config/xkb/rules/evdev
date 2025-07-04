@@ -1,5 +1,6 @@
 ! option = symbols
   dead_greek:g = +dead_greek(g)
   dead_greek:g_copyright = +dead_greek(g_copyright)
+  quick_underscore:qbar = +quick_underscore(qbar)
 
 ! include %S/evdev

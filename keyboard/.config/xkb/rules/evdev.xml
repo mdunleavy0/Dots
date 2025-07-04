@@ -21,5 +21,18 @@
         </configIem>
       </option>
     </group>
+
+	<group allowMultipleSelection="true">
+      <configIem>
+        <name>quick_underscore</name>
+        <description>Quick-access underscore</description>
+      </configIem>
+      <option>
+        <configIem>
+          <name>quick_underscore:qbar</name>
+          <description>Underscore on Shift+SPC</description>
+        </configIem>
+      </option>
+    </group>
   </optionList>
 </xkbConfigRegistry>

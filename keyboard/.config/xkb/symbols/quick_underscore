@@ -1,0 +1,5 @@
+// Quick-access underscore
+
+partial xkb_symbols "qbar" {
+    key <SPCE> {[ space, underscore, nobreakspace, nobreakspace ]};
+};
