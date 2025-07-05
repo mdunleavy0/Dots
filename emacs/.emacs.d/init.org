@@ -765,7 +765,25 @@ https://github.com/jimhourihan/glsl-mode
 Major mode for the OpenGL Shading Language.
 
 #+begin_src emacs-lisp
-  (use-package glsl-mode)
+  (use-package glsl-mode
+    :defer t)
+#+end_src
+
+
+** Indent Bars
+
+https://github.com/jdtsmith/indent-bars
+
+Provides indentation guide bars.
+
+#+begin_src emacs-lisp
+  (use-package indent-bars
+    :pin gnu
+    :custom
+    (indent-bars-highlight-current-depth '(:pattern "." :blend 0.5))
+    :hook
+    sgml-mode
+    nxml-mode)
 #+end_src
 
 
@@ -1043,6 +1061,12 @@ Toggle active line highlighting.
 
 #+begin_src emacs-lisp
   (bind-key "C-c h" 'global-hl-line-mode)
+#+end_src
+
+
+** Indent Bars
+#+begin_src emacs-lisp
+  (bind-key "C-c i" 'indent-bars-mode)
 #+end_src
 
 
