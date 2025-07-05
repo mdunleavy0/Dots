@@ -183,6 +183,14 @@ Preferred line width for commands like ~fill-paragraph~.
   (setq-default fill-column 80)
 #+end_src
 
+*** Fill Column Indicator
+
+Draw an indicator line to show the fill column width.
+
+#+begin_src emacs-lisp
+  (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
+#+end_src
+
 
 ** Indentation & Whitespace
 
